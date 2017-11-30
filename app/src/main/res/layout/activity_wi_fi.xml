@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.wwl.can.wifi.ui.WiFiActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/bt_finish"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="返回"/>
+            <Button
+                android:id="@+id/bt_checkwifi"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="checkwifi"/>
+            <Button
+                android:id="@+id/bt_openwifi"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="openwifi"/>
+            <Button
+                android:id="@+id/bt_closewifi"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="closewifi"/>
+            <Button
+                android:id="@+id/bt_scanwifi"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="scanwifi"/>
+
+            <Button
+                android:id="@+id/bt_getwifi"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="显示wifi信息"/>
+            <TextView
+                android:id="@+id/tv_wifimessage"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:text="显示wifi信息"/>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

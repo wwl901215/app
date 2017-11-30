@@ -9,8 +9,23 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.wwl.can.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <Button
+                android:id="@+id/bt_wifi"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="跳转wifi"/>
+            <Button
+                android:id="@+id/bt_bluetooth"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="跳转蓝牙"/>
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>
