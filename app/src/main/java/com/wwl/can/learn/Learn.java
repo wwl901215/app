@@ -8,6 +8,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.wwl.can.R;
+import com.wwl.can.learn.cadapter.CommonAdapter;
+import com.wwl.can.learn.cadapter.ViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +31,8 @@ public class Learn extends AppCompatActivity {
         setContentView(R.layout.activity_learn);
         ButterKnife.bind(this);
         iniData();
-        iniView();
+//        iniView();
+        iniView2();
     }
 
     private void iniData(){
@@ -38,6 +41,7 @@ public class Learn extends AppCompatActivity {
         }
     }
 
+    //普通设置adapter的方法
     private void iniView(){
         final CityAdapter adapter = new CityAdapter(this,list);
         lvLearn.setAdapter(adapter);
@@ -73,4 +77,24 @@ public class Learn extends AppCompatActivity {
             }
         });
     }
+
+    //使用封装好的公共CommonAdapter
+    private void iniView2(){
+        CommonAdapter<String> adapter = new CommonAdapter<String>(this,list,R.layout.learn_item) {
+            @Override
+            public void convert(ViewHolder helper, String item) {
+                helper.setText(R.id.tv_learn,item);
+            }
+        };
+        lvLearn.setAdapter(adapter);
+        lvLearn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(Learn.this,"item:"+position,Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
 }
