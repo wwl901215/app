@@ -12,6 +12,7 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -56,6 +57,12 @@ public class WiFiActivity extends AppCompatActivity {
     private void setData(){
         if (mWifiList !=null && mWifiList.size() > 0){
             lvScanresult.setAdapter(new WifiScanResultAdapter(this,mWifiList));
+            lvScanresult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Toast.makeText(WiFiActivity.this,"click item:"+position,Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 

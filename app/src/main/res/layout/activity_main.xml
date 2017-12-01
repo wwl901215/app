@@ -26,6 +26,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:text="跳转蓝牙"/>
+            <Button
+                android:id="@+id/bt_learn"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="练习"/>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
