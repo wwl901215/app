@@ -43,32 +43,32 @@ public class WifiScanResultAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
+        WifiViewHolder wifiViewHolder = null;
         if (convertView == null) {
-            viewHolder = new ViewHolder();
+            wifiViewHolder = new WifiViewHolder();
             convertView = LayoutInflater.from(mcontext).inflate(R.layout.wifi_scanresult_listitem, null);
-            viewHolder.ssid = (TextView) convertView.findViewById(R.id.ssid);
-            viewHolder.iv = (ImageView) convertView.findViewById(R.id.iv);
-            convertView.setTag(viewHolder);
+            wifiViewHolder.ssid = (TextView) convertView.findViewById(R.id.ssid);
+            wifiViewHolder.iv = (ImageView) convertView.findViewById(R.id.iv);
+            convertView.setTag(wifiViewHolder);
         } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+            wifiViewHolder = (WifiViewHolder) convertView.getTag();
         }
 
         ScanResult scanResult = data.get(position);
         if (scanResult != null){
-            viewHolder.ssid.setText(scanResult.SSID);
+            wifiViewHolder.ssid.setText(scanResult.SSID);
             if (scanResult.capabilities.contains("WEP") ||
                     scanResult.capabilities.contains("PSK") ||
                     scanResult.capabilities.contains("EAP")){
-                viewHolder.iv.setImageResource(R.mipmap.wifilock);
+                wifiViewHolder.iv.setImageResource(R.mipmap.wifilock);
             }else {
-                viewHolder.iv.setImageResource(R.mipmap.wifiopen);
+                wifiViewHolder.iv.setImageResource(R.mipmap.wifiopen);
             }
         }
         return convertView;
     }
 
-    private static class ViewHolder {
+    private static class WifiViewHolder {
         TextView ssid;
         ImageView iv;
     }
