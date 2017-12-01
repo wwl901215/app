@@ -84,9 +84,12 @@ public class WifiAdmin {
     }
 
     public void startScan(Context context) {
-        mWifiManager.startScan();
+        Boolean scanSuccess = mWifiManager.startScan();
         //得到扫描结果
-        List<ScanResult> results = mWifiManager.getScanResults();
+        List<ScanResult> results = null;
+        if (scanSuccess){
+            results = mWifiManager.getScanResults();
+        }
         // 得到配置好的网络连接
         mWifiConfiguration = mWifiManager.getConfiguredNetworks();
         if (results == null) {
