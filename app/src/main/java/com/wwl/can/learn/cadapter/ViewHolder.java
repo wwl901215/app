@@ -6,6 +6,7 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,8 +22,10 @@ public class ViewHolder {
     private final SparseArray<View> mViews;
     private  int mPosition;
     private View mConvertView;
+    private CommonAdapter.OnItemChildViewClickListener clickListener;
 
-    private ViewHolder(Context context,ViewGroup parent,int layoutId, int position){
+    private ViewHolder(Context context,ViewGroup parent,int layoutId, int position,CommonAdapter.OnItemChildViewClickListener listener){
+        this.clickListener = listener;
         this.mPosition = position;
         this.mViews = new SparseArray<View>();
         mConvertView = LayoutInflater.from(context).inflate(layoutId,parent,false);
@@ -38,9 +41,9 @@ public class ViewHolder {
      * @param position
      * @return
      */
-    public static ViewHolder get(Context context, View convertView, ViewGroup parent, int layoutId, int position){
+    public static ViewHolder get(Context context, View convertView, ViewGroup parent, int layoutId, int position, CommonAdapter.OnItemChildViewClickListener listener){
         if (convertView == null){
-            return new ViewHolder(context,parent,layoutId,position);
+            return new ViewHolder(context,parent,layoutId,position,listener);
         }
         return (ViewHolder) convertView.getTag();
     }
@@ -85,6 +88,29 @@ public class ViewHolder {
         return this;
     }
 
+
+    public ViewHolder setButtonClick(int viewId){
+        Button view = getView(viewId);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (clickListener != null){
+                    clickListener.onChildClick(v);
+                }
+            }
+        });
+        view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (clickListener != null){
+                    clickListener.onChildLongClick(v);
+                }
+                return true;
+            }
+        });
+        view.setTag(mPosition);
+        return this;
+    }
 
     /**
      * 为ImageView设置图片

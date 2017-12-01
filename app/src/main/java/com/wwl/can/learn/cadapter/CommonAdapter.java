@@ -19,6 +19,7 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
     protected Context mContext;
     protected List<T> mDatas;
     protected final int mItemLayoutId;
+    private OnItemChildViewClickListener itemChildViewClick;
 
     public CommonAdapter(Context context, List<T> mDatas,int itemLayoutId){
         mInflater = LayoutInflater.from(context);
@@ -51,8 +52,18 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
 
     public abstract void convert(ViewHolder helper, T item);
 
+    //给外部提供点击事件的方法
+    public void setOnItemChildViewClick(OnItemChildViewClickListener listener){
+        this.itemChildViewClick = listener;
+    }
+
+    public interface OnItemChildViewClickListener {
+        void onChildClick(View view);//单次点击
+        void onChildLongClick(View view);//长按点击
+    }
+
     private ViewHolder getViewHolder(int position,View convertView,ViewGroup parent){
-        return ViewHolder.get(mContext,convertView,parent,mItemLayoutId,position);
+        return ViewHolder.get(mContext,convertView,parent,mItemLayoutId,position,itemChildViewClick);
     }
 
 }

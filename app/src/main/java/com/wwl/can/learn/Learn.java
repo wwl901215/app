@@ -80,10 +80,11 @@ public class Learn extends AppCompatActivity {
 
     //使用封装好的公共CommonAdapter
     private void iniView2(){
-        CommonAdapter<String> adapter = new CommonAdapter<String>(this,list,R.layout.learn_item) {
+        final CommonAdapter<String> adapter = new CommonAdapter<String>(this,list,R.layout.learn_item) {
             @Override
             public void convert(ViewHolder helper, String item) {
                 helper.setText(R.id.tv_learn,item);
+                helper.setButtonClick(R.id.iv_learn);
             }
         };
         lvLearn.setAdapter(adapter);
@@ -91,6 +92,31 @@ public class Learn extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(Learn.this,"item:"+position,Toast.LENGTH_SHORT).show();
+            }
+        });
+        adapter.setOnItemChildViewClick(new CommonAdapter.OnItemChildViewClickListener() {
+            @Override
+            public void onChildClick(View view) {
+                int position;
+                position = (Integer) view.getTag();
+                switch (view.getId()){
+                    case R.id.iv_learn:
+                        Toast.makeText(Learn.this,"button click:"+position,Toast.LENGTH_SHORT).show();
+                        list.remove(position);
+                        adapter.notifyDataSetChanged();
+                        break;
+                }
+            }
+
+            @Override
+            public void onChildLongClick(View view) {
+                int position;
+                position = (Integer) view.getTag();
+                switch (view.getId()){
+                    case R.id.iv_learn:
+                        Toast.makeText(Learn.this,"button longclick:"+position,Toast.LENGTH_SHORT).show();
+                        break;
+                }
             }
         });
     }
