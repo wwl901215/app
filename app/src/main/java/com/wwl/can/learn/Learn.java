@@ -1,7 +1,7 @@
 package com.wwl.can.learn;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -17,7 +17,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class Learn extends AppCompatActivity {
+public class Learn extends Activity {
 
     @Bind(R.id.lv_learn) ListView lvLearn;
 
@@ -80,26 +80,28 @@ public class Learn extends AppCompatActivity {
 
     //使用封装好的公共CommonAdapter
     private void iniView2(){
+
         final CommonAdapter<String> adapter = new CommonAdapter<String>(this,list,R.layout.learn_item) {
             @Override
-            public void convert(ViewHolder helper, String item) {
+            public void convert(ViewHolder helper, String item) {//用于设置item控件内容和设置点击事件
                 helper.setText(R.id.tv_learn,item);
                 helper.setButtonClick(R.id.iv_learn);
             }
         };
         lvLearn.setAdapter(adapter);
-        lvLearn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvLearn.setOnItemClickListener(new AdapterView.OnItemClickListener() {//listview自己的item点击事件
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(Learn.this,"item:"+position,Toast.LENGTH_SHORT).show();
             }
         });
+        //手动设置item内部需要点击的点击事件
         adapter.setOnItemChildViewClick(new CommonAdapter.OnItemChildViewClickListener() {
             @Override
             public void onChildClick(View view) {
                 int position;
                 position = (Integer) view.getTag();
-                switch (view.getId()){
+                switch (view.getId()){//根据空间id来判断是哪一个控件
                     case R.id.iv_learn:
                         Toast.makeText(Learn.this,"button click:"+position,Toast.LENGTH_SHORT).show();
                         list.remove(position);

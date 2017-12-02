@@ -1,5 +1,6 @@
 package com.wwl.can.wifi.ui;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +11,6 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -28,7 +28,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class WiFiActivity extends AppCompatActivity {
+public class WiFiActivity extends Activity {
 
     @Bind(R.id.bt_checkwifi) Button btCheckwifi;
     @Bind(R.id.bt_openwifi) Button btOpenwifi;
