@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.wwl.can.R;
 import com.wwl.can.wifi.adapter.WifiScanResultAdapter;
+import com.wwl.can.wifi.unit.SomeMethod;
 import com.wwl.can.wifi.unit.WifiAdmin;
 
 import java.util.List;
@@ -48,19 +49,22 @@ public class WiFiActivity extends Activity {
         mWifiAdmin = new WifiAdmin(WiFiActivity.this);
         ButterKnife.bind(this);
         IntentFilter filter = new IntentFilter(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        filter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
         registerReceiver(mReceiver, filter);
         iniView();
     }
 
-    private void iniView(){
+    private void iniView() {
     }
-    private void setData(){
-        if (mWifiList !=null && mWifiList.size() > 0){
-            lvScanresult.setAdapter(new WifiScanResultAdapter(this,mWifiList));
+
+    private void setData() {
+        if (mWifiList != null && mWifiList.size() > 0) {
+            lvScanresult.setAdapter(new WifiScanResultAdapter(this, mWifiList));
+            SomeMethod.setListViewHeightBasedOnChilren(lvScanresult);
             lvScanresult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Toast.makeText(WiFiActivity.this,"click item:"+position,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WiFiActivity.this, "click item:" + position, Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -109,6 +113,11 @@ public class WiFiActivity extends Activity {
             if (wifiInfo.isConnected()) {
                 setWifiMessage(context);
             }
+            final String action = intent.getAction();
+            if (action.equals(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)) {
+                Toast.makeText(context, "扫描到了", Toast.LENGTH_SHORT).show();
+            }
+
         }
     };
 

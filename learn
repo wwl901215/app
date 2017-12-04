@@ -1,9 +1,16 @@
 一、用于学习的一些博客：
 1、关于界面代码技巧：
-封装通用的adpter和viewholder：http://blog.csdn.net/lmj623565791/article/details/38902805
-设置多种信号状态：http://blog.csdn.net/zhangphil/article/details/48936209
+1) 封装通用的adpter和viewholder：http://blog.csdn.net/lmj623565791/article/details/38902805
+2) 设置多种信号状态：http://blog.csdn.net/zhangphil/article/details/48936209
 
 
 2、关于功能技巧：
-wifi基础：http://blog.csdn.net/VNanyesheshou/article/details/50771698
-wifi聊天：http://blog.51cto.com/smallwoniu/1338618
+1) wifi基础：http://blog.csdn.net/VNanyesheshou/article/details/50771698
+2) wifi聊天：http://blog.51cto.com/smallwoniu/1338618
+
+
+3、项目中遇到的问题：
+1) android6.0及以上系统需要开启定位功能才能获取wifi扫描列表：http://blog.csdn.net/xueshanfeihu0/article/details/52945403
+2) scrollview嵌套listview的bug：http://blog.csdn.net/u010375364/article/details/51911316
+   https://www.cnblogs.com/falzy/p/5763895.html
+
