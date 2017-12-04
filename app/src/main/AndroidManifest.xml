@@ -37,6 +37,8 @@
             android:label="@string/title_activity_wifi_server"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity android:name=".learn.wifi.WifiClientActivity">
+        </activity>
     </application>
 
 </manifest>

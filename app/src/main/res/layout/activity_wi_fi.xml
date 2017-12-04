@@ -16,6 +16,16 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <Button
+                android:id="@+id/tb_server"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="去服务端"/>
+            <Button
+                android:id="@+id/tb_client"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="去客户端"/>
+            <Button
                 android:id="@+id/bt_finish"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"

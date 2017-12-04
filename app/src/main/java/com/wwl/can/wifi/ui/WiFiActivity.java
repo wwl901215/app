@@ -19,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wwl.can.R;
+import com.wwl.can.learn.wifi.WifiClientActivity;
+import com.wwl.can.learn.wifi.WifiServerActivity;
 import com.wwl.can.wifi.adapter.WifiScanResultAdapter;
 import com.wwl.can.wifi.unit.SomeMethod;
 import com.wwl.can.wifi.unit.WifiAdmin;
@@ -40,6 +42,8 @@ public class WiFiActivity extends Activity {
     @Bind(R.id.bt_finish) Button btFinish;
     @Bind(R.id.lv_scanresult) ListView lvScanresult;
     protected WifiAdmin mWifiAdmin;
+    @Bind(R.id.tb_server) Button tbServer;
+    @Bind(R.id.tb_client) Button tbClient;
     private List<ScanResult> mWifiList;
 
     @Override
@@ -70,7 +74,7 @@ public class WiFiActivity extends Activity {
         }
     }
 
-    @OnClick({R.id.bt_checkwifi, R.id.bt_openwifi, R.id.bt_closewifi, R.id.bt_scanwifi, R.id.bt_getwifi})
+    @OnClick({R.id.bt_checkwifi, R.id.bt_openwifi, R.id.bt_closewifi, R.id.bt_scanwifi, R.id.bt_getwifi,R.id.tb_server, R.id.tb_client})
     public void onViewClicked(View view) {
         Context context = WiFiActivity.this;
         switch (view.getId()) {
@@ -92,6 +96,14 @@ public class WiFiActivity extends Activity {
                 break;
             case R.id.bt_getwifi:
                 setWifiMessage(WiFiActivity.this);
+                break;
+            case R.id.tb_server:
+                Intent intent = new Intent(WiFiActivity.this, WifiServerActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tb_client:
+                Intent intent1 = new Intent(WiFiActivity.this, WifiClientActivity.class);
+                startActivity(intent1);
                 break;
         }
     }
@@ -125,4 +137,5 @@ public class WiFiActivity extends Activity {
     public void onViewClicked() {
         this.finish();
     }
+
 }
