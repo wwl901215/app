@@ -1,0 +1,30 @@
+udp-send:
+1、创建发送端Socket对象；
+    DatagramSocket ds = new DatagramSocket();
+2、创建数据，并把数据打包；
+    byte[] bys = "hello, udp".getBytes();
+    int length = bys.length;
+    InetAddress address = InetAddress.getByName("192.168.2.49");
+    int port = 10086;
+    DatagramPacket dp = new DatagramPacket(bys,length,address,port);
+3、调用Socket对象的发送方法发送数据包；
+    ds.send(dp);
+4、释放资源；
+    ds.close();
+udp-receive:
+1、创建接收Socket对象；
+    DatagramSocket ds = new DatagramSocket(10086);
+2、创建一个数据包；
+    byte[] bys = new byte[1024];
+    int length = bys.length;
+    DatagramPacket dp = new DatagramPacket(bys,length);
+3、调用Socket对象的接受方法接受数据；
+    ds.receive(dp);//在接受到数据前一直处于阻塞状态
+4、解析数据包，显示在控制台上；
+    byte[] bys2 = dp.getData();
+    int len = dp.getLength();
+    String s = new String(bys2,0,len);//传过来的数据
+    InetAddress address = dp.getAddress();//传过来的地址信息
+    String ip = address.getHostAddress();//地址信息中的ip地址
+5、释放资源；
+    ds.close();
