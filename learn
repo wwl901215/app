@@ -14,4 +14,6 @@
 1) android6.0及以上系统需要开启定位功能才能获取wifi扫描列表：http://blog.csdn.net/xueshanfeihu0/article/details/52945403
 2) scrollview嵌套listview的bug：http://blog.csdn.net/u010375364/article/details/51911316
    https://www.cnblogs.com/falzy/p/5763895.html
+3）使用ServerSocket需要开启网络权限，不然得到的是null；
+4）不同类型ip地址的获取方法：http://blog.csdn.net/sinat_16458039/article/details/50260589
 
