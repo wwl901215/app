@@ -75,6 +75,7 @@ public class WifiServerActivity extends AppCompatActivity {
                     } catch (IOException e){
                         e.printStackTrace();
                     }
+                    new ServerThread(socket,inputStream).start();
                 }
 
 

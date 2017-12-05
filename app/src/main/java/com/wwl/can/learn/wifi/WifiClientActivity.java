@@ -43,7 +43,7 @@ public class WifiClientActivity extends AppCompatActivity {
 
     public void connect(){
         ip = etConnect.getText().toString();
-        if (ip == null){
+        if (ip == null || ip.isEmpty()){
             Toast.makeText(WifiClientActivity.this,"please input server ip",Toast.LENGTH_SHORT).show();
         }
 
@@ -74,7 +74,7 @@ public class WifiClientActivity extends AppCompatActivity {
 
     public void send(){
         data = etSend.getText().toString();
-        if (data == null){
+        if (data == null || data.isEmpty()){
             Toast.makeText(WifiClientActivity.this,"please input sending data", Toast.LENGTH_SHORT).show();
         }else {
             data = data + '\0';

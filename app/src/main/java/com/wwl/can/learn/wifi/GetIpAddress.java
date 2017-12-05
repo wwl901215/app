@@ -31,7 +31,7 @@ public class GetIpAddress {
                 for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
                     InetAddress inetAddress = enumIpAddr.nextElement();
                     String mIP = inetAddress.getHostAddress().substring(0, 3);
-                    if ((mIP.equals("192"))) {
+                    if ((mIP.equals("192")) || mIP.equals("10.2")) {
                         IP = inetAddress.getHostAddress();
                         PORT = serverSocket.getLocalPort();
                         Log.e("ip:", IP + "");
