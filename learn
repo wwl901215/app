@@ -7,6 +7,8 @@
 2、关于功能技巧：
 1) wifi基础：http://blog.csdn.net/VNanyesheshou/article/details/50771698
 2) wifi聊天：http://blog.51cto.com/smallwoniu/1338618
+            http://blog.51cto.com/smallwoniu/1538298
+            http://blog.csdn.net/joffy/article/details/18079331
             简单版：http://blog.csdn.net/u010661782/article/details/50946760
 
 
@@ -16,4 +18,20 @@
    https://www.cnblogs.com/falzy/p/5763895.html
 3）使用ServerSocket需要开启网络权限，不然得到的是null；
 4）不同类型ip地址的获取方法：http://blog.csdn.net/sinat_16458039/article/details/50260589
+
+二、git相关操作：
+1、commit后没有push想撤回：
+    1）git reset head~1  // head表明commit顶部 1表示顶部最上面的提交记录
+2、commit后push了想撤回（前提是撤回最后一次提交的，别人没有再提交）：
+    1）git reset head~1  //先把本地撤回
+    2) git push -f   //撤回后，修改完，再强制提交，把上一次提交的覆盖掉，上一次在远程的代码就完全被新push的代码覆盖掉
+3、git tag 标签相关：
+    推送
+    git tag -a "v0.2" c98c186ebb381005b495f6f1f2a65dc72195ad9d -m "v0.2"
+    git push origin v0.2
+
+    删除
+    git tag -d v0.2
+    git push origin :v0.2
+
 

@@ -28,3 +28,28 @@ udp-receive:
     String ip = address.getHostAddress();//地址信息中的ip地址
 5、释放资源；
     ds.close();
+
+
+tcp-client:tcp协议必须先开服务端
+1、创建发送端的Socket对象，如果成功就表明链接成功：
+    Socket s = new Socket(InetAddress.getByName("192.168.12.92",8888);
+    或者 Socket s = new Socket("192.168.12.92",8888);
+2、获取输出流，写数据：
+    OutputStream os = s.getOutputStream():
+    os.write("hello tcp".getBytes());
+3、释放资源：
+    s.close();
+
+tcp-server：
+1、创建接受端的Socket对象；
+    ServerSocket ss = new ServerSocket(8888);
+2、监听客户端链接，返回对应的Socket对象；
+    Socket s= ss.accept();//客服端链接之前 处于阻塞状态
+3、获取数据流，读取数据显示
+    InputStream is = s.getInputStream();
+    byte[] bys = new byte[1024];
+    int len = is.read(bys); //阻塞试方法
+    String str = new String(bys,0,len);
+4、释放资源
+    s.close();
+    //ss.close(); 服务器不应该关闭
