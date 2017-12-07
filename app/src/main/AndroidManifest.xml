@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <!-- <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"/> -->
     <application
@@ -39,6 +39,12 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".learn.wifi.WifiClientActivity">
+        </activity>
+        <activity android:name=".chartroom.ui.LoginActivity">
+        </activity>
+        <activity android:name=".chartroom.ui.MultiChartRoom">
+        </activity>
+        <activity android:name=".chartroom.ui.SingleChartRoom">
         </activity>
     </application>
 
