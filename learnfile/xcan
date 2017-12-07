@@ -1,0 +1,29 @@
+XCAN产品：	UCAN-F [xxx—xxx-xxx]
+
+USB接口系列：
+	UCAN-F
+	UCAN-E
+	UCAN-P
+
+以太网接口系列：
+	ECAN-F
+	ECAN-E
+	ECAN-P
+
+无线接口系列：
+	WCAN-F
+	WCAN-E
+	WCAN-P
+
+F系列：
+	基础版本，通用市场，300；
+
+
+E系列：
+	专业版本，专业市场（F系列基础上增加专业协议栈～XCP,OBD,UDS…），600～1000；
+
+P系列：
+	升级版本，E系列基础上增加对汽车领域上位机的支持（但是不包括上位机软件），2000；
+
+[xxx—xxx-xxx] :
+表示 产品版本，CAN通道数量等产品信息
