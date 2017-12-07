@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onViewClicked() {
         String name = etLoginName.getText().toString();
         String pd = etLoginPw.getText().toString();
-        if (name.isEmpty() || pd.isEmpty()){
+        if (name.trim().isEmpty() || pd.trim().isEmpty()){
             Toast.makeText(this,"用户名和密码不能为空",Toast.LENGTH_SHORT).show();
             return;
         }
