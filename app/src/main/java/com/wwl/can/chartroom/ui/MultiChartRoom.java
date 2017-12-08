@@ -34,7 +34,7 @@ public class MultiChartRoom extends AppCompatActivity {
         FragmentTransaction transaction = manager.beginTransaction();
 
         ChartRoomFragment chartRoomFragment = new ChartRoomFragment();
-        transaction.add(chartRoomFragment,"CHART");
+        transaction.add(R.id.fl_chartroom,chartRoomFragment);
         transaction.commit();
     }
 

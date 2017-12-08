@@ -42,7 +42,7 @@
         </activity>
         <activity android:name=".chartroom.ui.LoginActivity">
         </activity>
-        <activity android:name=".chartroom.ui.MultiChartRoom" android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".chartroom.ui.MultiChartRoom" android:theme="@style/AppTheme.NoActionBar" android:windowSoftInputMode="stateHidden">
         </activity>
         <activity android:name=".chartroom.ui.SingleChartRoom">
         </activity>

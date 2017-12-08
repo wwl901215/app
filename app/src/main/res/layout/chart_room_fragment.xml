@@ -20,12 +20,14 @@
             android:layout_width="0dp"
             android:layout_height="45dp"
             android:background="@drawable/coner_line_layout"
+            android:paddingLeft="10dp"
             android:layout_weight="1"/>
         <Button
             android:id="@+id/bt_send"
             android:layout_width="50dp"
             android:layout_height="30dp"
             android:text="发送"
+            android:layout_margin="2dp"
             android:background="@drawable/coner_button"/>
     </LinearLayout>
     <LinearLayout
