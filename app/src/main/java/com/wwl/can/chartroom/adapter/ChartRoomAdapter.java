@@ -42,12 +42,23 @@ public class ChartRoomAdapter extends BaseAdapter {
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return data.get(position).getType();
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         ViewHolder1 viewHolder1 = null;
         ChartRoomItemBean bean = data.get(position);
+        int type = bean.getType();
         if (convertView == null){
-            if (bean.getType() == 1){
+            if (type == 1){
                 viewHolder = new ViewHolder();
                 convertView =  LayoutInflater.from(context).inflate(R.layout.chart_room_listitem_left,null);
                 viewHolder.nickname = (TextView) convertView.findViewById(R.id.chart_item_nickname);
@@ -62,14 +73,14 @@ public class ChartRoomAdapter extends BaseAdapter {
             }
 
         }else {
-            if (bean.getType() == 1){
+            if (type == 1){
                 viewHolder = (ViewHolder) convertView.getTag(R.layout.chart_room_listitem_left);
             }else {
                 viewHolder1 = (ViewHolder1) convertView.getTag(R.layout.chart_room_listitem_right);
             }
         }
 
-        if (bean.getType() == 1){
+        if (type == 1){
             viewHolder.nickname.setText(bean.getNickname());
             viewHolder.chartcontent.setText(bean.getChartcontent());
         }else {
@@ -85,6 +96,7 @@ public class ChartRoomAdapter extends BaseAdapter {
         private TextView nickname;
         private TextView chartcontent;
     }
+
     class ViewHolder1{
         private TextView nickname;
         private TextView chartcontent;

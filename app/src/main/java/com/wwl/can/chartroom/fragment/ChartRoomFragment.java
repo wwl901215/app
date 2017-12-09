@@ -53,7 +53,7 @@ public class ChartRoomFragment extends Fragment {
             ChartRoomItemBean bean = new ChartRoomItemBean();
             bean.setNickname("涛涛："+i);
             bean.setChartcontent("我是不是很帅？");
-            bean.setType(1);
+            bean.setType(0);
             data.add(bean);
         }
         for (int i = 0; i < 1; i++) {
@@ -81,7 +81,7 @@ public class ChartRoomFragment extends Fragment {
         switch (view.getId()) {
             case R.id.bt_send:
                 ChartRoomItemBean bean = new ChartRoomItemBean();
-                bean.setType(2);
+                bean.setType(0);
                 bean.setChartcontent(etChartroom.getText().toString());
                 bean.setNickname("亮");
                 data.add(bean);

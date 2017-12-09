@@ -7,7 +7,7 @@ package com.wwl.can.chartroom.bean;
 public class ChartRoomItemBean {
     private String nickname;
     private String chartcontent;
-    private int type; //布局类型 1：左侧 2：右侧
+    private int type; //布局类型 0：左侧 1：右侧
 
     public String getNickname() {
         return nickname;

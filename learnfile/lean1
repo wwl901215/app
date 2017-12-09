@@ -1,0 +1,11 @@
+1、listview多个item布局的时候要重写两个方法：
+    @Override
+    public int getItemViewType(int position) {
+        return data.get(position).getType();
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+    并且getItemViewType类型的值必须从零开始；
