@@ -32,8 +32,10 @@ public class MultiChartRoom extends AppCompatActivity {
     private void initView() {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-
         ChartRoomFragment chartRoomFragment = new ChartRoomFragment();
+        chartRoomFragment.setContext(this,
+                getIntent().getStringExtra("name"),
+                getIntent().getIntExtra("password",8001));
         transaction.add(R.id.fl_chartroom,chartRoomFragment);
         transaction.commit();
     }

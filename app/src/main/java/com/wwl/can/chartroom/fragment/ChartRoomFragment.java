@@ -1,11 +1,18 @@
 package com.wwl.can.chartroom.fragment;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,7 +21,16 @@ import android.widget.ListView;
 import com.wwl.can.R;
 import com.wwl.can.chartroom.adapter.ChartRoomAdapter;
 import com.wwl.can.chartroom.bean.ChartRoomItemBean;
+import com.wwl.can.chartroom.thread.TcpServerThread;
+import com.wwl.can.learn.wifi.GetIpAddressMethod;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +51,16 @@ public class ChartRoomFragment extends Fragment {
     @Bind(R.id.iv_chartroom_send_voice) ImageView ivChartroomSendVoice;
     private List<ChartRoomItemBean> data;
     private ChartRoomAdapter adapter;
+    private Handler handler;
+    private Handler serverHander;
+    private Context context;
+    private String ip;
+    private int port;
+    public void setContext(Context context,String ip,int port){
+        this.context = context;
+        this.ip = ip;
+        this.port = port;
+    }
 
     @Nullable
     @Override
@@ -65,9 +91,48 @@ public class ChartRoomFragment extends Fragment {
         }
     }
 
+    @SuppressLint("HandlerLeak")
     private void iniView() {
+        serverHander = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                ChartRoomItemBean bean = new ChartRoomItemBean();
+                bean.setChartcontent((String) msg.obj);
+                if (msg.what == 0){
+                    bean.setNickname("you");
+                    bean.setType(0);
+                }else {
+                    bean.setNickname("me");
+                    bean.setType(1);
+                }
+                data.add(bean);
+                adapter.notifyDataSetChanged();
+            }
+        };
+        new Thread( new TcpServerThread(serverHander,GetIpAddressMethod.getIpAddress(context),port)).start();
         adapter = new ChartRoomAdapter(ChartRoomFragment.this.getContext(),data);
         lvChartroom.setAdapter(adapter);
+        HandlerThread thread = new HandlerThread("handerthread");
+        thread.start();
+        handler = new Handler(thread.getLooper()){
+            @Override
+            public void handleMessage(Message msg) {
+               if (msg.what == 1){
+                   String textmsg = (String) msg.obj;
+                   String ip = GetIpAddressMethod.getIpAddress(ChartRoomFragment.this.getContext());
+                   try {
+                       Socket socket = new Socket(ip,port);
+                       OutputStream outputStream = socket.getOutputStream();
+                       outputStream.write(textmsg.getBytes());
+                       socket.close();
+                   } catch (IOException e) {
+                       e.printStackTrace();
+                   }
+               }
+
+            }
+        };
+
     }
 
     @Override
@@ -80,13 +145,21 @@ public class ChartRoomFragment extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_send:
-                ChartRoomItemBean bean = new ChartRoomItemBean();
-                bean.setType(0);
-                bean.setChartcontent(etChartroom.getText().toString());
-                bean.setNickname("亮");
-                data.add(bean);
-                adapter.notifyDataSetChanged();
+//                ChartRoomItemBean bean = new ChartRoomItemBean();
+//                bean.setType(0);
+//                bean.setChartcontent(etChartroom.getText().toString());
+//                bean.setNickname("亮");
+//                data.add(bean);
+//                adapter.notifyDataSetChanged();
+                Message message = Message.obtain();
+                message.what = 1;
+                message.obj = etChartroom.getText().toString();
+                handler.sendMessage(message);
                 etChartroom.setText("");
+                InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null){
+                    imm.hideSoftInputFromWindow(etChartroom.getWindowToken(),0);
+                }
                 break;
             case R.id.iv_chartroom_upload_pic:
                 break;

@@ -12,6 +12,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_centerInParent="true">
+        <TextView
+            android:id="@+id/login_tv_ip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="本机ip"/>
         <EditText
             android:id="@+id/et_login_name"
             android:layout_width="200dp"
@@ -20,17 +26,17 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/coner_line_layout"
             android:paddingLeft="10dp"
-            android:hint="请输入用户名"/>
+            android:hint="请输入对方ip"/>
         <EditText
             android:id="@+id/et_login_pw"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_centerInParent="true"
             android:layout_marginBottom="10dp"
-            android:inputType="textPassword"
+            android:inputType="number"
             android:background="@drawable/coner_line_layout"
             android:paddingLeft="10dp"
-            android:hint="请输入密码"/>
+            android:hint="请输入对方端口"/>
         <Button
             android:id="@+id/bt_sure"
             android:layout_width="wrap_content"

@@ -88,7 +88,7 @@ public class GetIpAddressMethod {
                 }
             }
         } catch (SocketException ex) {
-            Log.e("WifiPreference IpAddress", ex.toString());
+//            Log.e("WifiPreference IpAddress", ex.toString());
         }
         return null;
     }
