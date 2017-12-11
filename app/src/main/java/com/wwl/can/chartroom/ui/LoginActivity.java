@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         Intent intent = new Intent(LoginActivity.this, MultiChartRoom.class);
         intent.putExtra("name", name.trim());
-        intent.putExtra("password", Integer.getInteger(pd.trim()).intValue());
+        intent.putExtra("password", Integer.parseInt(pd.trim()));
         startActivity(intent);
     }
 }

@@ -20,6 +20,7 @@ public class MultiChartRoom extends AppCompatActivity {
     @Bind(R.id.tv_top_back) ImageView tvTopBack;
     @Bind(R.id.topbar_nickname) TextView topbarNickname;
     @Bind(R.id.fl_chartroom) FrameLayout flChartroom;
+    private ChartRoomFragment chartRoomFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class MultiChartRoom extends AppCompatActivity {
     private void initView() {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        ChartRoomFragment chartRoomFragment = new ChartRoomFragment();
+        chartRoomFragment = new ChartRoomFragment();
         chartRoomFragment.setContext(this,
                 getIntent().getStringExtra("name"),
                 getIntent().getIntExtra("password",8001));
@@ -42,6 +43,14 @@ public class MultiChartRoom extends AppCompatActivity {
 
     @OnClick(R.id.tv_top_back)
     public void onViewClicked() {
+        if (chartRoomFragment != null) chartRoomFragment.stopThread();
+        this.finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (chartRoomFragment != null) chartRoomFragment.stopThread();
         this.finish();
     }
 }
