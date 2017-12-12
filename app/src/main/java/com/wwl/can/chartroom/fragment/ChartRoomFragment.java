@@ -131,23 +131,7 @@ public class ChartRoomFragment extends Fragment {
                        //发送给对方
                        OutputStream outputStream = socket.getOutputStream();
                        outputStream.write(textmsg.getBytes());
-                       //接受对方返回的消息
-//                       BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//                       StringBuffer sb = new StringBuffer();
-//                       String line = null;
-//                       while ((line = br.readLine()) != null){
-//                           sb.append(line);
-//                       }
-//                       String news = sb.toString();
-//                       String msgFromServer = news.substring(0,news.length() - 2);
-
                        socket.close();
-//
-//                       ChartRoomItemBean bean = new ChartRoomItemBean();
-//                       bean.setNickname("me");
-//                       bean.setChartcontent(msgFromServer);
-//                       bean.setType(0);
-//                       adapter.notifyDataSetChanged();
                    } catch (IOException e) {
                        e.printStackTrace();
                    }
@@ -172,6 +156,14 @@ public class ChartRoomFragment extends Fragment {
     }
 
     private void send(){
+        //显示在自己的界面
+        ChartRoomItemBean bean = new ChartRoomItemBean();
+        bean.setNickname("me");
+        bean.setChartcontent(etChartroom.getText().toString());
+        bean.setType(0);
+        data.add(bean);
+        adapter.notifyDataSetChanged();
+
         Message message = Message.obtain();
         message.what = 1;
         message.obj = etChartroom.getText().toString();

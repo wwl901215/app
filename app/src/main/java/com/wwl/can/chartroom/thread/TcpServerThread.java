@@ -6,7 +6,6 @@ import android.os.Message;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -29,7 +28,7 @@ public class TcpServerThread implements Runnable {
             while (openThread){
                 Socket socket = serverSocket.accept();//阻塞方法
 
-                //接受消息
+                //接受消息，并且把消息handler给本机
                 BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 StringBuffer sb = new StringBuffer();
                 String line = null;
@@ -45,15 +44,15 @@ public class TcpServerThread implements Runnable {
                 }
                 String news = sb.toString();
                 String msg = news.substring(0,news.length() - 2);
+                message.obj = msg;
+                handler.sendMessage(message);
 
-                //返回消息
-                OutputStream outputStream = socket.getOutputStream();
-                outputStream.write(msg.getBytes());
+                //返回消息，告诉客户端受到消息了
+//                OutputStream outputStream = socket.getOutputStream();
+//                outputStream.write("接受到了消息".getBytes());
 
                 socket.close();
 
-                message.obj = msg;
-                handler.sendMessage(message);
             }
             serverSocket.close();
         } catch (IOException e) {
