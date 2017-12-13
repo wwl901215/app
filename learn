@@ -36,7 +36,7 @@ http://www.cnblogs.com/yangfengwu/p/5294921.html
     git push origin :v0.2
 
 三、学习计划：
-1、socket相关：
+1、socket相关 和 udp相关：
 2、retrofit + okhttp + rxjava 框架：
 3、react native navigation + flux:
 4、vue:
