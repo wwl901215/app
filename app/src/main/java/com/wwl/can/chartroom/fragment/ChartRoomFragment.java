@@ -109,6 +109,15 @@ public class ChartRoomFragment extends Fragment {
                 }
                 data.add(bean);
                 adapter.notifyDataSetChanged();
+                //客户端ip不为空,并且不是服务端
+                if (ip.equals(GetIpAddressMethod.getIpAddress(context))){
+                    if (serverThread.clientIP.size() > 0){
+                        Message toClients = obtainMessage();
+                        toClients.what = 1;
+                        toClients.obj = msg.obj;
+                        handler.sendMessage(toClients);
+                    }
+                }
             }
         };
         //启动服务线程，打开serversocket
@@ -123,7 +132,7 @@ public class ChartRoomFragment extends Fragment {
         handler = new Handler(thread.getLooper()){
             @Override
             public void handleMessage(Message msg) {
-               if (msg.what == 1){
+               if (msg.what == 0){
                    String textmsg = (String) msg.obj;
 //                   String ip = GetIpAddressMethod.getIpAddress(ChartRoomFragment.this.getContext());
                    try {
@@ -135,6 +144,23 @@ public class ChartRoomFragment extends Fragment {
                    } catch (IOException e) {
                        e.printStackTrace();
                    }
+               }else if (msg.what == 1){ //发往客服端的服务
+                   if (serverThread.clientIP.size() > 0){
+                       List<String> clientIP = serverThread.clientIP;
+                       String textmsg = (String) msg.obj;
+                       for (int i = 0; i < clientIP.size(); i++) {
+                           try {
+                               Socket socket = new Socket(clientIP.get(i),port);
+                               //发送给对方
+                               OutputStream outputStream = socket.getOutputStream();
+                               outputStream.write(textmsg.getBytes());
+                               socket.close();
+                           } catch (IOException e) {
+                               e.printStackTrace();
+                           }
+                       }
+                   }
+
                }
 
             }
@@ -165,7 +191,7 @@ public class ChartRoomFragment extends Fragment {
         adapter.notifyDataSetChanged();
 
         Message message = Message.obtain();
-        message.what = 1;
+        message.what = 0;
         message.obj = etChartroom.getText().toString();
         handler.sendMessage(message);
         etChartroom.setText("");

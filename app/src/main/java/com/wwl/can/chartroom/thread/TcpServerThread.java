@@ -8,11 +8,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TcpServerThread implements Runnable {
     private android.os.Handler handler;
     private String localIP;
     private int port;
+    public List<String> clientIP;
     private Boolean openThread = true;
     private ServerSocket serverSocket;
     public TcpServerThread(Handler handler,String localIP, int port) {
@@ -24,6 +27,7 @@ public class TcpServerThread implements Runnable {
     @Override
     public void run() {
         try {
+            clientIP = new ArrayList<>();
             serverSocket = new ServerSocket(port);
             while (openThread){
                 Socket socket = serverSocket.accept();//阻塞方法
@@ -37,6 +41,11 @@ public class TcpServerThread implements Runnable {
                 }
                 Message message = Message.obtain();
                 String ip = socket.getInetAddress().getHostAddress();
+                if (!ip.equals(localIP)){
+                    if (!clientIP.contains(ip) && !ip.equals(localIP)){
+                        clientIP.add(ip);
+                    }
+                }
                 if (ip.equals(localIP)){
                     message.what = 0;
                 }else {
