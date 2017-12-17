@@ -10,6 +10,8 @@ import android.widget.Toast;
 import com.wwl.can.R;
 import com.wwl.can.learn.cadapter.CommonAdapter;
 import com.wwl.can.learn.cadapter.ViewHolder;
+import com.wwl.can.learn.netutil.Api;
+import com.wwl.can.learn.netutil.OkhttpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,6 +95,7 @@ public class Learn extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(Learn.this,"item:"+position,Toast.LENGTH_SHORT).show();
+                OkhttpUtils.getInstance().get(Api.bookApi,null);
             }
         });
         //手动设置item内部需要点击的点击事件

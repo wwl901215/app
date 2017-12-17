@@ -15,3 +15,7 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+#okhttp
+-dontwarn okhttp3.**
+-keep class okhttp3.**{*;}
