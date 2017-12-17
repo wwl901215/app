@@ -12,6 +12,8 @@
             tcp:http://blog.csdn.net/u011680348/article/details/50483416
             udp:http://blog.csdn.net/joffy/article/details/18079331
 http://www.cnblogs.com/yangfengwu/p/5294921.html
+3）android框架：rxjava： http://blog.csdn.net/github_36617621/article/details/77366987
+
 
 3、项目中遇到的问题：
 1) android6.0及以上系统需要开启定位功能才能获取wifi扫描列表：http://blog.csdn.net/xueshanfeihu0/article/details/52945403

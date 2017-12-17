@@ -2,24 +2,56 @@ package com.wwl.can.learn;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import com.wwl.can.BuildConfig;
 import com.wwl.can.R;
+import com.wwl.can.learn.bean.BookList;
 import com.wwl.can.learn.cadapter.CommonAdapter;
 import com.wwl.can.learn.cadapter.ViewHolder;
 import com.wwl.can.learn.netutil.Api;
-import com.wwl.can.learn.netutil.OkhttpUtils;
+import com.wwl.can.learn.netutil.ItemsApi;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Learn extends Activity {
+    private static Retrofit create() {
+        OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
+        builder.readTimeout(10, TimeUnit.SECONDS);
+        builder.connectTimeout(9, TimeUnit.SECONDS);
+
+        if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            builder.addInterceptor(interceptor);
+        }
+
+        return new Retrofit.Builder().baseUrl(Api.HOST)
+                .client(builder.build())
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+    }
 
     @Bind(R.id.lv_learn) ListView lvLearn;
 
@@ -95,7 +127,65 @@ public class Learn extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(Learn.this,"item:"+position,Toast.LENGTH_SHORT).show();
-                OkhttpUtils.getInstance().get(Api.bookApi,null);
+//                OkhttpUtils.getInstance().get(Api.bookApi,null);
+//                new ItemsMode(Learn.this).getBookListItems(new ApiResultObserver<BookList>(Learn.this) {
+//                    @Override
+//                    public void onSuccess(BookList apiResult) {
+//                        String title = apiResult.getAlt_title();
+//                        list.add(0,title);
+//                        adapter.notifyDataSetChanged();
+//                    }
+//                });
+
+                ItemsApi itemsApi = create().create(ItemsApi.class);
+                Observable<BookList> observable = itemsApi.getBookListData();
+                observable.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<BookList>() {
+                            @Override
+                            public void onSubscribe(@NonNull Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(@NonNull BookList bookList) {
+                                String title = bookList.getAlt_title();
+                                list.add(0,title);
+                                adapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onError(@NonNull Throwable e) {
+                                Log.e("aaaaaaa", e.toString());
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        });
+
+//                Observable<Integer> observable = Observable.create(new ObservableOnSubscribe<Integer>() {
+//                    @Override
+//                    public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+//                        Log.d(TAG, "Observable thread is : " + Thread.currentThread().getName());
+//                        Log.d(TAG, "emit 1");
+//                        emitter.onNext(1);
+//                    }
+//                });
+//
+//                Consumer<Integer> consumer = new Consumer<Integer>() {
+//                    @Override
+//                    public void accept(Integer integer) throws Exception {
+//                        Log.d(TAG, "Observer thread is :" + Thread.currentThread().getName());
+//                        Log.d(TAG, "onNext: " + integer);
+//                        Toast.makeText(Learn.this,integer+"",Toast.LENGTH_LONG).show();
+//                    }
+//                };
+//
+//                observable.subscribe(consumer);
+
+
             }
         });
         //手动设置item内部需要点击的点击事件
