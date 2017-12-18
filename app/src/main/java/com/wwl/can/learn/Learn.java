@@ -2,56 +2,33 @@ package com.wwl.can.learn;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.wwl.can.BuildConfig;
 import com.wwl.can.R;
-import com.wwl.can.learn.bean.BookList;
 import com.wwl.can.learn.cadapter.CommonAdapter;
 import com.wwl.can.learn.cadapter.ViewHolder;
-import com.wwl.can.learn.netutil.Api;
-import com.wwl.can.learn.netutil.ItemsApi;
+import com.wwl.can.learn.test.Bean;
+import com.wwl.can.learn.test.Constant;
+import com.wwl.can.learn.test.MyService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Learn extends Activity {
-    private static Retrofit create() {
-        OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
-        builder.readTimeout(10, TimeUnit.SECONDS);
-        builder.connectTimeout(9, TimeUnit.SECONDS);
-
-        if (BuildConfig.DEBUG) {
-            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            builder.addInterceptor(interceptor);
-        }
-
-        return new Retrofit.Builder().baseUrl(Api.HOST)
-                .client(builder.build())
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-    }
 
     @Bind(R.id.lv_learn) ListView lvLearn;
 
@@ -127,44 +104,8 @@ public class Learn extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(Learn.this,"item:"+position,Toast.LENGTH_SHORT).show();
-//                OkhttpUtils.getInstance().get(Api.bookApi,null);
-//                new ItemsMode(Learn.this).getBookListItems(new ApiResultObserver<BookList>(Learn.this) {
-//                    @Override
-//                    public void onSuccess(BookList apiResult) {
-//                        String title = apiResult.getAlt_title();
-//                        list.add(0,title);
-//                        adapter.notifyDataSetChanged();
-//                    }
-//                });
 
-                ItemsApi itemsApi = create().create(ItemsApi.class);
-                Observable<BookList> observable = itemsApi.getBookListData();
-                observable.subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<BookList>() {
-                            @Override
-                            public void onSubscribe(@NonNull Disposable d) {
-
-                            }
-
-                            @Override
-                            public void onNext(@NonNull BookList bookList) {
-                                String title = bookList.getAlt_title();
-                                list.add(0,title);
-                                adapter.notifyDataSetChanged();
-                            }
-
-                            @Override
-                            public void onError(@NonNull Throwable e) {
-                                Log.e("aaaaaaa", e.toString());
-                            }
-
-                            @Override
-                            public void onComplete() {
-
-                            }
-                        });
-
+// ------------------------------rxjava---------------------------------------
 //                Observable<Integer> observable = Observable.create(new ObservableOnSubscribe<Integer>() {
 //                    @Override
 //                    public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
@@ -184,6 +125,61 @@ public class Learn extends Activity {
 //                };
 //
 //                observable.subscribe(consumer);
+
+//                -------------------retrofit------------
+//                Retrofit retrofit = new Retrofit.Builder()
+//                        .baseUrl(Constant.URL_BASE)
+//                        .addConverterFactory(GsonConverterFactory.create())
+//                        .build();
+//                RequestServices requestServices = retrofit.create(RequestServices.class);
+//                Call<Bean> cal = requestServices.getString();
+//                cal.enqueue(new Callback<Bean>() {
+//                    @Override
+//                    public void onResponse(Call<Bean> call, Response<Bean> response) {
+//                        list.add(2,response.body().getLocation());
+//                        adapter.notifyDataSetChanged();
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<Bean> call, Throwable t) {
+//
+//                    }
+//                });
+
+                //------------------rxjava and retrofit------------------------
+
+                Retrofit retrofit = new Retrofit.Builder()
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                        .baseUrl(Constant.URL_BASE)
+                        .build();
+
+                MyService myService = retrofit.create(MyService.class);
+                myService.getBean()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<Bean>() {
+                            @Override
+                            public void onSubscribe(@NonNull Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(@NonNull Bean bean) {
+                                list.add(4,bean.getLocation());
+                                adapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onError(@NonNull Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        });
 
 
             }
