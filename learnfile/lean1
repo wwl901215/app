@@ -9,3 +9,11 @@
         return 2;
     }
     并且getItemViewType类型的值必须从零开始；
+
+    https://developers.douban.com/wiki/?title=book_v2#get_book
+
+    http://blog.csdn.net/sk719887916/article/details/51958010
+
+    http://www.jianshu.com/p/566912926427
+
+    http://www.jianshu.com/p/bd758f51742e
