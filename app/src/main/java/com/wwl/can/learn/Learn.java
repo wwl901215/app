@@ -8,13 +8,13 @@ import android.widget.Toast;
 
 import com.wwl.can.BaseActivity;
 import com.wwl.can.R;
+import com.wwl.can.learn.bean.BookMessage;
 import com.wwl.can.learn.cadapter.CommonAdapter;
 import com.wwl.can.learn.cadapter.ViewHolder;
 import com.wwl.can.learn.netutil.ApiObserver;
 import com.wwl.can.learn.netutil.BaseSubscribe;
+import com.wwl.can.learn.netutil.BookService;
 import com.wwl.can.learn.netutil.ServiceGenerator;
-import com.wwl.can.learn.test.Bean;
-import com.wwl.can.learn.test.MyService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +29,8 @@ public class Learn extends BaseActivity {
 
     private List<String> list = new ArrayList<String>();
 
-    private static final String[] Datas = { "北京", "上海", "广州", "深圳", "苏州", "南京",
-            "武汉", "长沙", "杭州", "长春", "无锡", "常州", "绍兴", "嘉兴", "衢州" };
+    private static final String[] Datas = { "android", "python", "java", "php", "c", "c++",
+            "c#", "vb", "js", "kotlin", "eclipse", "cad", "pro/e" };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,8 +97,7 @@ public class Learn extends BaseActivity {
         lvLearn.setAdapter(adapter);
         lvLearn.setOnItemClickListener(new AdapterView.OnItemClickListener() {//listview自己的item点击事件
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(Learn.this,"item:"+position,Toast.LENGTH_SHORT).show();
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
 // ------------------------------rxjava---------------------------------------
 //                Observable<Integer> observable = Observable.create(new ObservableOnSubscribe<Integer>() {
@@ -143,18 +142,18 @@ public class Learn extends BaseActivity {
 
                 //------------------rxjava and retrofit------------------------
 
-                MyService myService = ServiceGenerator.createService(MyService.class);
-                Observable<Bean> bean = myService.getBean();
-                new BaseSubscribe(Learn.this).subscribe(bean, new ApiObserver<Bean>() {
+                BookService myService = ServiceGenerator.createService(BookService.class);
+                Observable<BookMessage> bean = myService.searchBookMessage(list.get(position),1,1);
+                new BaseSubscribe(Learn.this).subscribe(bean, new ApiObserver<BookMessage>() {
                     @Override
-                    public void success(Bean bean) {
-                        list.add(4,bean.getLocation());
+                    public void success(BookMessage bean) {
+                        list.add(0,bean.getBooks().size() > 0 ? bean.getBooks().get(0).getAlt_title() : "没有搜索到书名");
                         adapter.notifyDataSetChanged();
                     }
 
                     @Override
                     public void error(Throwable e) {
-
+                        Toast.makeText(Learn.this,e.getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 });
 

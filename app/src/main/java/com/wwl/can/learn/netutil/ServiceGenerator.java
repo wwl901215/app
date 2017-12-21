@@ -1,7 +1,6 @@
 package com.wwl.can.learn.netutil;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.wwl.can.learn.test.Constant;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +24,7 @@ public class ServiceGenerator {
     private static Retrofit.Builder builder = new Retrofit.Builder()
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .baseUrl(Constant.URL_BASE);
+                    .baseUrl(ApiHost.HOST);
 
     public static <T> T createService(Class<T> serviceClass){
 
