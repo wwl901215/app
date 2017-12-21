@@ -7,12 +7,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.wwl.can.R;
 import com.wwl.can.learn.cadapter.CommonAdapter;
 import com.wwl.can.learn.cadapter.ViewHolder;
+import com.wwl.can.learn.netutil.ApiObserver;
+import com.wwl.can.learn.netutil.BaseSubscribe;
+import com.wwl.can.learn.netutil.ServiceGenerator;
 import com.wwl.can.learn.test.Bean;
-import com.wwl.can.learn.test.Constant;
 import com.wwl.can.learn.test.MyService;
 
 import java.util.ArrayList;
@@ -20,13 +21,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import io.reactivex.Observable;
 
 public class Learn extends Activity {
 
@@ -148,39 +143,20 @@ public class Learn extends Activity {
 
                 //------------------rxjava and retrofit------------------------
 
-                Retrofit retrofit = new Retrofit.Builder()
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                        .baseUrl(Constant.URL_BASE)
-                        .build();
+                MyService myService = ServiceGenerator.createService(MyService.class);
+                Observable<Bean> bean = myService.getBean();
+                new BaseSubscribe().subscribe(bean, new ApiObserver<Bean>() {
+                    @Override
+                    public void success(Bean bean) {
+                        list.add(4,bean.getLocation());
+                        adapter.notifyDataSetChanged();
+                    }
 
-                MyService myService = retrofit.create(MyService.class);
-                myService.getBean()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<Bean>() {
-                            @Override
-                            public void onSubscribe(@NonNull Disposable d) {
+                    @Override
+                    public void error(Throwable e) {
 
-                            }
-
-                            @Override
-                            public void onNext(@NonNull Bean bean) {
-                                list.add(4,bean.getLocation());
-                                adapter.notifyDataSetChanged();
-                            }
-
-                            @Override
-                            public void onError(@NonNull Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-
-                            }
-                        });
-
+                    }
+                });
 
             }
         });
