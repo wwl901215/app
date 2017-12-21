@@ -1,12 +1,12 @@
 package com.wwl.can.learn;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.wwl.can.BaseActivity;
 import com.wwl.can.R;
 import com.wwl.can.learn.cadapter.CommonAdapter;
 import com.wwl.can.learn.cadapter.ViewHolder;
@@ -23,7 +23,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
 
-public class Learn extends Activity {
+public class Learn extends BaseActivity {
 
     @Bind(R.id.lv_learn) ListView lvLearn;
 
@@ -145,7 +145,7 @@ public class Learn extends Activity {
 
                 MyService myService = ServiceGenerator.createService(MyService.class);
                 Observable<Bean> bean = myService.getBean();
-                new BaseSubscribe().subscribe(bean, new ApiObserver<Bean>() {
+                new BaseSubscribe(Learn.this).subscribe(bean, new ApiObserver<Bean>() {
                     @Override
                     public void success(Bean bean) {
                         list.add(4,bean.getLocation());
