@@ -8,6 +8,7 @@ import android.widget.Button;
 import com.wwl.can.chartroom.ui.LoginActivity;
 import com.wwl.can.learn.Learn;
 import com.wwl.can.wifi.ui.WiFiActivity;
+import com.wwl.can.zhujie.AnnotationActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -15,10 +16,16 @@ import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
 
-    @Bind(R.id.bt_wifi) Button btWifi;
-    @Bind(R.id.bt_bluetooth) Button btBluetooth;
-    @Bind(R.id.bt_learn) Button btLearn;
-    @Bind(R.id.bt_chartroom) Button btChartroom;
+    @Bind(R.id.bt_wifi)
+    Button btWifi;
+    @Bind(R.id.bt_bluetooth)
+    Button btBluetooth;
+    @Bind(R.id.bt_learn)
+    Button btLearn;
+    @Bind(R.id.bt_chartroom)
+    Button btChartroom;
+    @Bind(R.id.bt_annotation)
+    Button btAnnotation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +34,7 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.bt_wifi, R.id.bt_bluetooth, R.id.bt_learn, R.id.bt_chartroom})
+    @OnClick({R.id.bt_wifi, R.id.bt_bluetooth, R.id.bt_learn, R.id.bt_chartroom, R.id.bt_annotation})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_wifi:
@@ -44,6 +51,9 @@ public class MainActivity extends BaseActivity {
                 Intent intent2 = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent2);
                 break;
+            case R.id.bt_annotation:
+                Intent intent3 = new Intent(MainActivity.this, AnnotationActivity.class);
+                startActivity(intent3);
         }
     }
 }

@@ -36,6 +36,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:text="聊天室"/>
+            <Button
+                android:id="@+id/bt_annotation"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="注解"/>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
