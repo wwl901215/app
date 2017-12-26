@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.wwl.can.MainActivity">
-
+    tools:context="com.wwl.can.canvas.CanvasMenu">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -17,35 +14,35 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <Button
-                android:id="@+id/bt_wifi"
+                android:id="@+id/bt_canvas1"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="跳转wifi"/>
+                android:text="canvas1"/>
             <Button
-                android:id="@+id/bt_bluetooth"
+                android:id="@+id/bt_canvas2"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="跳转蓝牙"/>
+                android:text="canvas2"/>
             <Button
-                android:id="@+id/bt_learn"
+                android:id="@+id/bt_canvas3"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="练习"/>
+                android:text="canvas3"/>
             <Button
-                android:id="@+id/bt_chartroom"
+                android:id="@+id/bt_canvas4"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="聊天室"/>
+                android:text="canvas4"/>
             <Button
-                android:id="@+id/bt_annotation"
+                android:id="@+id/bt_canvas5"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="注解"/>
+                android:text="canvas5"/>
             <Button
-                android:id="@+id/bt_canvas"
+                android:id="@+id/bt_canvas6"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="canvas"/>
+                android:text="canvas6"/>
         </LinearLayout>
     </ScrollView>
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

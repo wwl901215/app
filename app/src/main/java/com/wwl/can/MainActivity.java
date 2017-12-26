@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.wwl.can.canvas.CanvasMenu;
 import com.wwl.can.chartroom.ui.LoginActivity;
 import com.wwl.can.learn.Learn;
 import com.wwl.can.wifi.ui.WiFiActivity;
@@ -26,6 +27,7 @@ public class MainActivity extends BaseActivity {
     Button btChartroom;
     @Bind(R.id.bt_annotation)
     Button btAnnotation;
+    @Bind(R.id.bt_canvas) Button btCanvas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,7 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.bt_wifi, R.id.bt_bluetooth, R.id.bt_learn, R.id.bt_chartroom, R.id.bt_annotation})
+    @OnClick({R.id.bt_wifi, R.id.bt_bluetooth, R.id.bt_learn, R.id.bt_chartroom, R.id.bt_annotation, R.id.bt_canvas})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_wifi:
@@ -54,6 +56,9 @@ public class MainActivity extends BaseActivity {
             case R.id.bt_annotation:
                 Intent intent3 = new Intent(MainActivity.this, AnnotationActivity.class);
                 startActivity(intent3);
+            case R.id.bt_canvas:
+                Intent intent4 = new Intent(MainActivity.this, CanvasMenu.class);
+                startActivity(intent4);
         }
     }
 }
