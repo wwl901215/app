@@ -16,6 +16,7 @@ public class Canvas1Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_canvas1);
         FrameLayout root = (FrameLayout) findViewById(R.id.root);
-        root.addView(new MyView(Canvas1Activity.this));
+//        root.addView(new MyView(Canvas1Activity.this));
+        root.addView(new MyRegionView(Canvas1Activity.this));
     }
 }
