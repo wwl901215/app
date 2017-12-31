@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.wwl.can.R;
+import com.wwl.can.canvas.animedemo.AnimActivity;
 import com.wwl.can.canvas.canvas1.Canvas1Activity;
 
 import butterknife.Bind;
@@ -37,6 +38,7 @@ public class CanvasMenu extends AppCompatActivity {
                 intent.setClass(CanvasMenu.this, Canvas1Activity.class);
                 break;
             case R.id.bt_canvas2:
+                intent.setClass(CanvasMenu.this, AnimActivity.class);
                 break;
             case R.id.bt_canvas3:
                 break;

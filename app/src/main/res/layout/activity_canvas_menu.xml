@@ -22,7 +22,7 @@
                 android:id="@+id/bt_canvas2"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="canvas2"/>
+                android:text="anime1"/>
             <Button
                 android:id="@+id/bt_canvas3"
                 android:layout_width="wrap_content"
