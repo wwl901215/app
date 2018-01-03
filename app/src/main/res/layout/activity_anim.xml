@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.wwl.can.canvas.animedemo.AnimActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <SeekBar
+        android:id="@+id/seekbar"
+        android:max="100"
+        android:progress="0"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:maxHeight="20dp"
+        android:minHeight="10dp"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="这是seekbar的值"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/iv"
+            android:src="@mipmap/zhizhen"
+            android:layout_width="100dp"
+            android:scaleType="fitXY"
+            android:layout_height="50dp"/>
+    </LinearLayout>
+</LinearLayout>
