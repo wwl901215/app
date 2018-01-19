@@ -8,6 +8,7 @@ import android.widget.Button;
 import com.wwl.can.canvas.CanvasMenu;
 import com.wwl.can.chartroom.ui.LoginActivity;
 import com.wwl.can.learn.Learn;
+import com.wwl.can.webview.WebViewActivity;
 import com.wwl.can.wifi.ui.WiFiActivity;
 import com.wwl.can.zhujie.AnnotationActivity;
 
@@ -28,6 +29,7 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.bt_annotation)
     Button btAnnotation;
     @Bind(R.id.bt_canvas) Button btCanvas;
+    @Bind(R.id.bt_webview) Button btWebview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,7 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.bt_wifi, R.id.bt_bluetooth, R.id.bt_learn, R.id.bt_chartroom, R.id.bt_annotation, R.id.bt_canvas})
+    @OnClick({R.id.bt_wifi, R.id.bt_bluetooth, R.id.bt_learn, R.id.bt_chartroom, R.id.bt_annotation, R.id.bt_canvas, R.id.bt_webview})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_wifi:
@@ -59,6 +61,9 @@ public class MainActivity extends BaseActivity {
             case R.id.bt_canvas:
                 Intent intent4 = new Intent(MainActivity.this, CanvasMenu.class);
                 startActivity(intent4);
+            case R.id.bt_webview:
+                Intent intent5 = new Intent(MainActivity.this, WebViewActivity.class);
+                startActivity(intent5);
         }
     }
 }

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wwl.can">
+          package="com.wwl.can">
 
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <!-- <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"/> -->
     <application
@@ -20,34 +20,36 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".wifi.ui.WiFiActivity"
             android:label="@string/title_activity_wi_fi"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".learn.Learn"
             android:label="@string/title_activity_learn"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".learn.wifi.WifiServerActivity"
             android:label="@string/title_activity_wifi_server"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".learn.wifi.WifiClientActivity" />
-        <activity android:name=".chartroom.ui.LoginActivity" />
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".learn.wifi.WifiClientActivity"/>
+        <activity android:name=".chartroom.ui.LoginActivity"/>
         <activity
             android:name=".chartroom.ui.MultiChartRoom"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".chartroom.ui.SingleChartRoom" />
-        <activity android:name=".zhujie.AnnotationActivity" />
-        <activity android:name=".canvas.CanvasMenu"></activity>
-        <activity android:name=".canvas.canvas1.Canvas1Activity"></activity>
-        <activity android:name=".canvas.animedemo.AnimActivity"></activity>
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".chartroom.ui.SingleChartRoom"/>
+        <activity android:name=".zhujie.AnnotationActivity"/>
+        <activity android:name=".canvas.CanvasMenu"/>
+        <activity android:name=".canvas.canvas1.Canvas1Activity"/>
+        <activity android:name=".canvas.animedemo.AnimActivity"/>
+        <activity android:name=".webview.WebViewActivity">
+        </activity>
     </application>
 
 </manifest>
