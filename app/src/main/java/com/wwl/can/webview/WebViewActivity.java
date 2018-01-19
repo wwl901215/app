@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.JsResult;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -30,6 +31,8 @@ import butterknife.OnClick;
 import static android.view.KeyEvent.KEYCODE_BACK;
 
 //https://www.jianshu.com/p/b9164500d3fb
+//https://www.jianshu.com/p/2b2e5d417e10
+//https://www.jianshu.com/p/44b977907e51
 public class WebViewActivity extends AppCompatActivity {
 
     @Bind(R.id.webview) WebView webview;
@@ -202,10 +205,17 @@ public class WebViewActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        if (webview != null){
+            webview.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
+            webview.onPause();//停止动画 地理位置等内核处理，但是不能停止js；
+            webview.pauseTimers();//全局停止js；
+            webview.clearHistory();
+//            webviewLayout.removeView(webview);//或者下面这个方法
+            ((ViewGroup) webview.getParent()).removeView(webview);
+            webview.destroy();
+            webview = null;
+        }
         super.onDestroy();
-        webview.onPause();
-        webviewLayout.removeView(webview);
-        webview.destroy();
     }
 
     //    问题：在不做任何处理前提下 ，浏览网页时点击系统的“Back”键,整个 Browser 会调用 finish()而结束自身
