@@ -42,6 +42,7 @@ public class MainActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_wifi:
+
                 Intent intent = new Intent(MainActivity.this, WiFiActivity.class);
                 startActivity(intent);
                 break;
@@ -58,12 +59,15 @@ public class MainActivity extends BaseActivity {
             case R.id.bt_annotation:
                 Intent intent3 = new Intent(MainActivity.this, AnnotationActivity.class);
                 startActivity(intent3);
+                break;
             case R.id.bt_canvas:
                 Intent intent4 = new Intent(MainActivity.this, CanvasMenu.class);
                 startActivity(intent4);
+                break;
             case R.id.bt_webview:
                 Intent intent5 = new Intent(MainActivity.this, WebViewActivity.class);
                 startActivity(intent5);
+                break;
         }
     }
 }
