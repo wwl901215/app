@@ -3,6 +3,18 @@ apply plugin: 'com.android.application'
 Properties props = new Properties()
 props.load(new FileInputStream(file("signing.properties")))
 
+Properties serverProps = new Properties()
+def propFile = file('server.properties')
+def devName, devAge, devBoy
+if (propFile.canRead()) {
+    serverProps.load(new FileInputStream(propFile))
+    if (serverProps != null) {
+        devName = serverProps['devName']
+        devAge = serverProps['devAge']
+        devBoy = serverProps['devBoy']
+    }
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "26.0.2"
@@ -45,6 +57,22 @@ android {
 //            signingConfig signingConfigs.release
 //        }
     }
+
+    productFlavors {
+        dev {//以文件形式倒入的写法
+            versionName "aaa"
+            buildConfigField("String", "devName", devName)
+            buildConfigField('Number', 'devAge', devAge)
+            buildConfigField('Boolean', 'devBoy', devBoy)
+        }
+        betal {//直接写死的写法
+            versionName "bbb"
+            buildConfigField("String", "betalName", '"daming"')//设置字符串类型的变量daming必须先用''符号，再套一层""号 才起作用
+            buildConfigField('Number', 'betalAge', '16')//数字类型
+            buildConfigField('Boolean', 'betalBoy', 'true')//布尔类型
+        }
+    }
+
 }
 
 dependencies {
@@ -66,4 +94,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife:7.0.1'
     compile files('libs/MyLib.jar')
+    compile 'org.greenrobot:eventbus:3.1.1'
 }
