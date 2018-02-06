@@ -33,7 +33,7 @@ public class ServiceGenerator {
 //        okBuilder.cache(setCache());//设置缓存
 //        okBuilder.interceptors().add(getCache(60));//获取缓存
 
-//        okBuilder.interceptors().add(headerInterceptor());//设置头部
+        okBuilder.interceptors().add(headerInterceptor());//设置头部
         okBuilder.connectTimeout(20, TimeUnit.SECONDS);
         okBuilder.writeTimeout(20,TimeUnit.SECONDS);
         okBuilder.readTimeout(20,TimeUnit.SECONDS);
@@ -52,9 +52,7 @@ public class ServiceGenerator {
             public Response intercept(Chain chain) throws IOException {
                 Request originalRequest = chain.request();
                 Request.Builder requestBuilder = originalRequest.newBuilder()
-                        .header("","")
-                        .header("","")
-                        .header("","")
+                        .header("x-access-token","eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMDE3MDUwOTYxNzkiLCJpc3MiOiJvY2otc3RhcnNreSIsImxvZ2lkIjoiNjM2NjQ0OTY5NTI1Mzg2MDM1MiIsImV4cCI6MTUyNTY1NTg5MCwiaWF0IjoxNTE3ODc5ODkwLCJkZXZpY2VpZCI6IiJ9.Yu-lQ-Jrk-HRez4Ap-WNaZLyH2C3ZcIjYJM2L6sAtrU")
                         .method(originalRequest.method(),originalRequest.body());
                 Request request = requestBuilder.build();
                 return chain.proceed(request);

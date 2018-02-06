@@ -51,6 +51,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:text="webview"/>
+            <Button
+                android:id="@+id/bt_globallist"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="Global"/>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

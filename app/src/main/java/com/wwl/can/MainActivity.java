@@ -30,6 +30,7 @@ public class MainActivity extends BaseActivity {
     Button btAnnotation;
     @Bind(R.id.bt_canvas) Button btCanvas;
     @Bind(R.id.bt_webview) Button btWebview;
+    @Bind(R.id.bt_globallist) Button btGloballist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.bt_wifi, R.id.bt_bluetooth, R.id.bt_learn, R.id.bt_chartroom, R.id.bt_annotation, R.id.bt_canvas, R.id.bt_webview})
+    @OnClick({R.id.bt_wifi, R.id.bt_bluetooth, R.id.bt_learn, R.id.bt_chartroom, R.id.bt_annotation, R.id.bt_canvas, R.id.bt_webview, R.id.bt_globallist})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_wifi:
@@ -67,6 +68,11 @@ public class MainActivity extends BaseActivity {
                 Intent intent5 = new Intent(MainActivity.this, WebViewActivity.class);
                 startActivity(intent5);
                 break;
+            case R.id.bt_globallist:
+                Intent intent6 = new Intent(MainActivity.this, GlobalListActivity.class);
+                startActivity(intent6);
+                break;
         }
     }
+
 }
