@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.squareup.picasso.Picasso;
@@ -17,9 +18,10 @@ import java.util.List;
  * Created by wangwenliang on 2018/2/6.
  */
 
-public class GlobalListAdapter extends RecyclerView.Adapter<GlobalLiseItemRVH> {
+public class GlobalListAdapter extends RecyclerView.Adapter<GlobalLiseItemRVH> implements View.OnClickListener {
     private Context context;
     private List mData;
+    private OnItemClickListener clickListener = null;
 
     public void setContext(Context context) {
         this.context = context;
@@ -31,7 +33,9 @@ public class GlobalListAdapter extends RecyclerView.Adapter<GlobalLiseItemRVH> {
 
     @Override
     public GlobalLiseItemRVH onCreateViewHolder(ViewGroup parent, int viewType) {
-        GlobalLiseItemRVH holder = new GlobalLiseItemRVH(LayoutInflater.from(context).inflate(R.layout.global_list_item,parent,false));
+        View view = LayoutInflater.from(context).inflate(R.layout.global_list_item, parent, false);
+        GlobalLiseItemRVH holder = new GlobalLiseItemRVH(view);
+        view.setOnClickListener(this);
         return holder;
     }
 
@@ -46,10 +50,26 @@ public class GlobalListAdapter extends RecyclerView.Adapter<GlobalLiseItemRVH> {
                 .placeholder(R.mipmap.picture)
                 .error(R.mipmap.voice_grey)
                 .into(holder.iv);
+        holder.itemView.setTag(position);
     }
 
     @Override
     public int getItemCount() {
         return mData.size();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (clickListener != null) {
+            clickListener.onItemClick(v, (Integer) v.getTag());
+        }
+    }
+
+    public static interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    public void setOnItemClick(OnItemClickListener listener) {
+        this.clickListener = listener;
     }
 }

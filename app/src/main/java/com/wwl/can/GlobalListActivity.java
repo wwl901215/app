@@ -1,8 +1,11 @@
 package com.wwl.can;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +17,7 @@ import com.wwl.can.learn.netutil.BaseSubscribe;
 import com.wwl.can.learn.netutil.BookService;
 import com.wwl.can.learn.netutil.ServiceGenerator;
 import com.wwl.can.learn.readaper.GlobalListAdapter;
+import com.wwl.can.learn.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +34,7 @@ public class GlobalListActivity extends BaseActivity {
     @Bind(R.id.tv_top_back) ImageView tvTopBack;
     @Bind(R.id.topbar_nickname) TextView topbarNickname;
     @Bind(R.id.recyclerview) RecyclerView recyclerview;
+    @Bind(R.id.srl) SwipeRefreshLayout srl;
 
     List<GlobalListItemBean> data;
     GlobalListAdapter adapter;
@@ -46,12 +51,47 @@ public class GlobalListActivity extends BaseActivity {
     private void initView() {
         data = new ArrayList<>();
 //        recyclerview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));//普通的布局模式
-        recyclerview.setLayoutManager(new GridLayoutManager(this,2));//网格布局
+        recyclerview.setLayoutManager(new GridLayoutManager(this, 2));//网格布局
 //        recyclerview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));//瀑布流布局，需要item高度不一样的情况下
         adapter = new GlobalListAdapter();
         adapter.setContext(this);
         adapter.setData(data);
+        adapter.setOnItemClick(new GlobalListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                GlobalListItemBean itemBean = data.get(position);
+                Toast.makeText(GlobalListActivity.this, itemBean.getTitle(), Toast.LENGTH_SHORT).show();
+                if (srl.isRefreshing()){
+                    srl.setRefreshing(false);
+                }else {
+                    srl.setRefreshing(true);
+                }
+            }
+        });
         recyclerview.setAdapter(adapter);
+        recyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                Log.e("onScrolled:state:",String.valueOf(newState));
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                Log.e("onScrolled:",String.valueOf(dy));
+                boolean isBottom = Utils.isRecyclerViewBottom(recyclerView, dy);
+                if (isBottom) {
+                    Toast.makeText(GlobalListActivity.this,"滑动到底部了aaaaaa",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.e("refresh:","aaa");
+            }
+        });
     }
 
     private void initData() {
