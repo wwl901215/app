@@ -6,6 +6,9 @@ package com.wwl.can.learn.bean;
 
 public class GlobalListItemBean {
     private String imgUrl;
+    private String title;
+    private String price;
+    private String inputText;
 
     public String getImgUrl() {
         return imgUrl;
@@ -31,6 +34,12 @@ public class GlobalListItemBean {
         this.price = price;
     }
 
-    private String title;
-    private String price;
+    public String getInputText() {
+        return inputText;
+    }
+
+    public void setInputText(String inputText) {
+        this.inputText = inputText;
+    }
+
 }

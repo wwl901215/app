@@ -2,7 +2,7 @@ package com.wwl.can;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.wwl.can.learn.bean.GlobalListBean;
 import com.wwl.can.learn.bean.GlobalListItemBean;
 import com.wwl.can.learn.netutil.ApiObserver;
@@ -17,6 +18,7 @@ import com.wwl.can.learn.netutil.BaseSubscribe;
 import com.wwl.can.learn.netutil.BookService;
 import com.wwl.can.learn.netutil.ServiceGenerator;
 import com.wwl.can.learn.readaper.GlobalListAdapter;
+import com.wwl.can.learn.readaper.GlobalListBaseQuickAdapter;
 import com.wwl.can.learn.utils.Utils;
 
 import java.util.ArrayList;
@@ -38,6 +40,7 @@ public class GlobalListActivity extends BaseActivity {
 
     List<GlobalListItemBean> data;
     GlobalListAdapter adapter;
+    GlobalListBaseQuickAdapter quickAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +53,11 @@ public class GlobalListActivity extends BaseActivity {
 
     private void initView() {
         data = new ArrayList<>();
-//        recyclerview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));//普通的布局模式
-        recyclerview.setLayoutManager(new GridLayoutManager(this, 2));//网格布局
+        recyclerview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));//普通的布局模式
+//        recyclerview.setLayoutManager(new GridLayoutManager(this, 2));//网格布局
 //        recyclerview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));//瀑布流布局，需要item高度不一样的情况下
         adapter = new GlobalListAdapter();
+        quickAdapter = new GlobalListBaseQuickAdapter(this,R.layout.global_list_item,data);
         adapter.setContext(this);
         adapter.setData(data);
         adapter.setOnItemClick(new GlobalListAdapter.OnItemClickListener() {
@@ -68,7 +72,16 @@ public class GlobalListActivity extends BaseActivity {
                 }
             }
         });
-        recyclerview.setAdapter(adapter);
+//        recyclerview.setAdapter(adapter);
+
+        quickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                GlobalListItemBean itemBean = data.get(position);
+                Toast.makeText(GlobalListActivity.this, "BaseQuick:"+itemBean.getTitle(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        recyclerview.setAdapter(quickAdapter);
         recyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -120,7 +133,8 @@ public class GlobalListActivity extends BaseActivity {
                         itemBean.setTitle(bean.getTitle());
                         data.add(itemBean);
                     }
-                    adapter.notifyDataSetChanged();
+//                    adapter.notifyDataSetChanged();
+                    quickAdapter.notifyDataSetChanged();
                 }
             }
 

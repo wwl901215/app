@@ -28,4 +28,13 @@
         android:text="100￥"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/et"
+        android:layout_below="@id/tv_price"
+        android:layout_toRightOf="@id/iv"
+        android:layout_marginTop="5dp"
+        android:layout_width="100dp"
+        android:hint="默认文字"
+        android:textSize="12sp"
+        android:layout_height="wrap_content"/>
 </RelativeLayout>
