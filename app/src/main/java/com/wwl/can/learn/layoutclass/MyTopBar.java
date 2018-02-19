@@ -19,7 +19,7 @@ import com.wwl.can.learn.utils.Utils;
  * @Created by: 艾克斯 .
  * @Date: 2018-02-14
  * @Package: com.wwl.can.learn.layoutclass
- * @Description: ${TODO}
+ * @Description: http://www.cnblogs.com/whoislcj/p/5714760.html
  * @author: 王文亮
  * @邮箱： wwl901215@163.com
  */
