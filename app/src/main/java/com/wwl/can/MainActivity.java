@@ -1,7 +1,12 @@
 package com.wwl.can;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 
@@ -32,11 +37,48 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.bt_webview) Button btWebview;
     @Bind(R.id.bt_globallist) Button btGloballist;
 
+    private LocationManager locationManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        locationManager.addTestProvider(mMockProviderName, false, true, false, false, true, true,
+                true, 0, 5);
+        locationManager.setTestProviderEnabled(mMockProviderName, true);
+//        locationManager.requestLocationUpdates();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    setLocation();
+                }
+            }
+        }).start();
+    }
+//    https://github.com/YiuChoi/FakeGps/tree/master/app/src/main/java/name/caiyao/fakegps/hook
+//    https://www.jianshu.com/p/91e312faa6c3
+//    http://blog.csdn.net/Aslanchen/article/details/43449765
+//    http://blog.csdn.net/qq_23547831/article/details/52033726
+    private String mMockProviderName = LocationManager.GPS_PROVIDER;
+    public void setLocation() {
+        Location location = new Location(mMockProviderName);
+        location.setTime(System.currentTimeMillis());
+        location.setLatitude(31.3029742);
+        location.setLongitude(120.6097126);
+        location.setAltitude(2.0f);
+        location.setAccuracy(3.0f);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            location.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
+        }
+        locationManager.setTestProviderLocation(mMockProviderName,location);
+
     }
 
     @OnClick({R.id.bt_wifi, R.id.bt_bluetooth, R.id.bt_learn, R.id.bt_chartroom, R.id.bt_annotation, R.id.bt_canvas, R.id.bt_webview, R.id.bt_globallist})
