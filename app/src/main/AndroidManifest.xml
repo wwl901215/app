@@ -11,6 +11,15 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"/>
 
+    <meta-data
+        android:name="xposedmodule"
+        android:value="true" />
+    <meta-data
+        android:name="xposeddescription"
+        android:value="模块描述" />
+    <meta-data
+        android:name="xposedminversion"
+        android:value="54" />
     <!-- <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"/> -->
     <application
         android:name=".BaseApplication"

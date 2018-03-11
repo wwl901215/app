@@ -43,29 +43,32 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        locationManager.addTestProvider(mMockProviderName, false, true, false, false, true, true,
-                true, 0, 5);
-        locationManager.setTestProviderEnabled(mMockProviderName, true);
-//        locationManager.requestLocationUpdates();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    try {
-                        Thread.sleep(3000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    setLocation();
-                }
-            }
-        }).start();
+//        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+//        locationManager.addTestProvider(mMockProviderName, false, true, false, false, true, true,
+//                true, 0, 5);
+//        locationManager.setTestProviderEnabled(mMockProviderName, true);
+////        locationManager.requestLocationUpdates();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                while (true) {
+//                    try {
+//                        Thread.sleep(3000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                    setLocation();
+//                }
+//            }
+//        }).start();
     }
 //    https://github.com/YiuChoi/FakeGps/tree/master/app/src/main/java/name/caiyao/fakegps/hook
 //    https://www.jianshu.com/p/91e312faa6c3
 //    http://blog.csdn.net/Aslanchen/article/details/43449765
 //    http://blog.csdn.net/qq_23547831/article/details/52033726
+//    https://www.cnblogs.com/gordon0918/p/6689883.html
+//    http://blog.csdn.net/mrglaucusss/article/details/50963542
+//    https://www.jianshu.com/p/796e94d8af31
     private String mMockProviderName = LocationManager.GPS_PROVIDER;
     public void setLocation() {
         Location location = new Location(mMockProviderName);
