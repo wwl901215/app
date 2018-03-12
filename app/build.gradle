@@ -79,7 +79,7 @@ android {
 }
 
 dependencies {
-    provided fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     //    compile 'com.squareup.okhttp3:okhttp:3.3.1'
     //    compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
     compile files('libs/MyLib.jar')
