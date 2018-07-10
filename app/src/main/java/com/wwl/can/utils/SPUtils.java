@@ -1,4 +1,4 @@
-﻿package com.wwl.can.utils;
+package com.wwl.can.utils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

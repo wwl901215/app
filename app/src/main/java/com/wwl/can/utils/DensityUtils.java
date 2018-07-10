@@ -1,4 +1,4 @@
-﻿package com.wwl.can.utils;
+package com.wwl.can.utils;
 
 import android.content.Context;
 import android.util.TypedValue;
@@ -53,7 +53,7 @@ public class DensityUtils
 
 	/**
 	 * px转sp
-	 * 
+	 *
 	 * @param fontScale
 	 * @param pxVal
 	 * @return
