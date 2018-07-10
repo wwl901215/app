@@ -266,6 +266,14 @@ public class PullHeaderView extends LinearLayout {
         mState=state;
     }
 
+    /**
+     * 获取当前headvIEW的状态
+     * @return 状态
+     */
+    public int getState() {
+        return mState;
+    }
+
     public int getHeaderHeight() {
         return headerHeight;
     }
