@@ -1,6 +1,5 @@
 package com.wwl.can;
 
-import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
@@ -13,6 +12,7 @@ import android.widget.Button;
 import com.wwl.can.canvas.CanvasMenu;
 import com.wwl.can.chartroom.ui.LoginActivity;
 import com.wwl.can.learn.Learn;
+import com.wwl.can.pulltorefreshview.PullToRefreshViewActivity;
 import com.wwl.can.webview.WebViewActivity;
 import com.wwl.can.wifi.ui.WiFiActivity;
 import com.wwl.can.zhujie.AnnotationActivity;
@@ -33,11 +33,17 @@ public class MainActivity extends BaseActivity {
     Button btChartroom;
     @Bind(R.id.bt_annotation)
     Button btAnnotation;
-    @Bind(R.id.bt_canvas) Button btCanvas;
-    @Bind(R.id.bt_webview) Button btWebview;
-    @Bind(R.id.bt_globallist) Button btGloballist;
+    @Bind(R.id.bt_canvas)
+    Button btCanvas;
+    @Bind(R.id.bt_webview)
+    Button btWebview;
+    @Bind(R.id.bt_globallist)
+    Button btGloballist;
+    @Bind(R.id.bt_pull)
+    Button btPull;
 
     private LocationManager locationManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +68,8 @@ public class MainActivity extends BaseActivity {
 //            }
 //        }).start();
     }
-//    https://github.com/YiuChoi/FakeGps/tree/master/app/src/main/java/name/caiyao/fakegps/hook
+
+    //    https://github.com/YiuChoi/FakeGps/tree/master/app/src/main/java/name/caiyao/fakegps/hook
 //    https://www.jianshu.com/p/91e312faa6c3
 //    http://blog.csdn.net/Aslanchen/article/details/43449765
 //    http://blog.csdn.net/qq_23547831/article/details/52033726
@@ -70,6 +77,7 @@ public class MainActivity extends BaseActivity {
 //    http://blog.csdn.net/mrglaucusss/article/details/50963542
 //    https://www.jianshu.com/p/796e94d8af31
     private String mMockProviderName = LocationManager.GPS_PROVIDER;
+
     public void setLocation() {
         Location location = new Location(mMockProviderName);
         location.setTime(System.currentTimeMillis());
@@ -80,11 +88,11 @@ public class MainActivity extends BaseActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             location.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
         }
-        locationManager.setTestProviderLocation(mMockProviderName,location);
+        locationManager.setTestProviderLocation(mMockProviderName, location);
 
     }
 
-    @OnClick({R.id.bt_wifi, R.id.bt_bluetooth, R.id.bt_learn, R.id.bt_chartroom, R.id.bt_annotation, R.id.bt_canvas, R.id.bt_webview, R.id.bt_globallist})
+    @OnClick({R.id.bt_wifi, R.id.bt_bluetooth, R.id.bt_learn, R.id.bt_chartroom, R.id.bt_annotation, R.id.bt_canvas, R.id.bt_webview, R.id.bt_globallist, R.id.bt_pull})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_wifi:
@@ -116,6 +124,11 @@ public class MainActivity extends BaseActivity {
             case R.id.bt_globallist:
                 Intent intent6 = new Intent(MainActivity.this, GlobalListActivity.class);
                 startActivity(intent6);
+                break;
+
+            case R.id.bt_pull:
+                Intent intent7 = new Intent(MainActivity.this, PullToRefreshViewActivity.class);
+                startActivity(intent7);
                 break;
         }
     }
