@@ -47,7 +47,7 @@ public class PullToRefreshViewActivity extends AppCompatActivity implements Pull
     }
 
     private void initData() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
             datas.add(""+i);
         }
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, datas){

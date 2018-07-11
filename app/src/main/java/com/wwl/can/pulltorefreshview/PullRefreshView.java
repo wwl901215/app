@@ -74,6 +74,7 @@ public class PullRefreshView extends LinearLayout implements AbsListView.OnScrol
         super(context, attrs, defStyleAttr);
         this.setOrientation(LinearLayout.VERTICAL);
         this.mContext = context;
+        addHeaderView();
     }
 
     /**
