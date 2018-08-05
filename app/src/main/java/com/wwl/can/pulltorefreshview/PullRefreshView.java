@@ -3,6 +3,7 @@ package com.wwl.can.pulltorefreshview;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -140,6 +141,7 @@ public class PullRefreshView extends LinearLayout implements AbsListView.OnScrol
             case MotionEvent.ACTION_UP:
                 break;
         }
+        Log.e("onInterceptTouchEvent", String.valueOf(super.onInterceptTouchEvent(ev)));
         return super.onInterceptTouchEvent(ev);
     }
 
@@ -251,6 +253,7 @@ public class PullRefreshView extends LinearLayout implements AbsListView.OnScrol
                 }
                 break;
         }
+        Log.e("onTouchEvent", String.valueOf(super.onTouchEvent(event)));
         return super.onTouchEvent(event);
     }
 
@@ -366,6 +369,8 @@ public class PullRefreshView extends LinearLayout implements AbsListView.OnScrol
     public void onScroll(AbsListView absListView, int i, int i1, int i2) {
         if(mAdapterView!=null&&mAdapterView.getCount()>0){
             View child = mAdapterView.getChildAt(mAdapterView.getChildCount() - 1);
+            Log.e("=======: getBottom", String.valueOf(child.getBottom()));
+            Log.e("=======: MeasuredHeight", String.valueOf(getMeasuredHeight()));
             if(child!=null&&child.getBottom()<=getMeasuredHeight()&&mAdapterView.getLastVisiblePosition()==mAdapterView.getCount()-1){
                 if(mScrollState== AbsListView.OnScrollListener.SCROLL_STATE_FLING){
                     footRefreshing();
