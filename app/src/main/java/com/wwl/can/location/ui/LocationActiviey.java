@@ -1,16 +1,32 @@
 package com.wwl.can.location.ui;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.baidu.navisdk.adapter.BaiduNaviManagerFactory;
+import com.baidu.navisdk.adapter.IBaiduNaviManager;
 import com.wwl.can.R;
 import com.wwl.can.location.ui.utils.MyLocationListener;
 
+import java.io.File;
+
 
 public class LocationActiviey extends AppCompatActivity{
+
+    private String mSDCardPath = null;
+    private static final String APP_FOLDER_NAME = "BNSDKSimpleDemo";
+    private static final String[] authBaseArr = {
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.ACCESS_FINE_LOCATION
+    };
+    private static final int authBaseRequestCode = 1;
+
 
     public LocationClient mLocationClient = null;
     private MyLocationListener myListener = new MyLocationListener();
@@ -21,6 +37,9 @@ public class LocationActiviey extends AppCompatActivity{
         iniClinet();
         initOption();
         startListener();
+
+
+        initBaidu();
     }
 
     private void startListener() {
@@ -89,6 +108,85 @@ public class LocationActiviey extends AppCompatActivity{
                 Toast.makeText(getApplicationContext(),"lat:" + lat + " lot:" + lot,Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void initBaidu() {
+
+        if (initDirs()) {
+            // 申请权限
+            if (android.os.Build.VERSION.SDK_INT >= 23) {
+                if (!hasBasePhoneAuth()) {
+                    this.requestPermissions(authBaseArr, authBaseRequestCode);
+                    return;
+                }
+            }
+            BaiduNaviManagerFactory.getBaiduNaviManager().init(this, mSDCardPath, APP_FOLDER_NAME,
+                    new IBaiduNaviManager.INaviInitListener() {
+                        @Override
+                        public void onAuthResult(int i, String s) {
+                            String result;
+                            if (0 == i) {
+                                result = "key校验成功!";
+                            } else {
+                                result = "key校验失败, " + s;
+                            }
+                            Toast.makeText(LocationActiviey.this, result, Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void initStart() {
+                            Toast.makeText(LocationActiviey.this, "百度导航引擎初始化开始", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void initSuccess() {
+                            Toast.makeText(LocationActiviey.this, "百度导航引擎初始化成功", Toast.LENGTH_SHORT).show();
+//                            hasInitSuccess = true;
+//                            // 初始化tts
+//                            initTTS();
+                        }
+
+
+                        @Override
+                        public void initFailed() {
+                            Toast.makeText(LocationActiviey.this, "百度导航引擎初始化失败", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+        }
+    }
+
+    private boolean initDirs() {
+        mSDCardPath = getSdcardDir();
+        if (mSDCardPath == null) {
+            return false;
+        }
+        File f = new File(mSDCardPath, APP_FOLDER_NAME);
+        if (!f.exists()) {
+            try {
+                f.mkdir();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean hasBasePhoneAuth() {
+        PackageManager pm = this.getPackageManager();
+        for (String auth : authBaseArr) {
+            if (pm.checkPermission(auth, this.getPackageName()) != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
+    }
+    private String getSdcardDir() {
+        if (Environment.getExternalStorageState().equalsIgnoreCase(Environment.MEDIA_MOUNTED)) {
+            return Environment.getExternalStorageDirectory().toString();
+        }
+        return null;
     }
 
     @Override

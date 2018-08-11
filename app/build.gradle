@@ -25,6 +25,9 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        ndk {
+            abiFilters "armeabi", "x86"
+        }
     }
 
     signingConfigs {
@@ -101,4 +104,6 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife:7.0.1'
     compile 'com.android.support:recyclerview-v7:25.1.0'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    compile project(':NaviTts')
+    compile project(':onsdk_all')
 }
