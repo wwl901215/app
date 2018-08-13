@@ -102,6 +102,8 @@ public class LocationActiviey extends AppCompatActivity {
         mLocationClient.setLocOption(option);
     }
 
+    private static double mLat = 0;
+    private static double mLot = 0;
     private void iniClinet() {
         mLocationClient = new LocationClient(getApplicationContext());
         //声明LocationClient类
@@ -111,6 +113,8 @@ public class LocationActiviey extends AppCompatActivity {
             @Override
             public void getLL(double lat, double lot) {
                 Toast.makeText(getApplicationContext(), "lat:" + lat + " lot:" + lot, Toast.LENGTH_SHORT).show();
+                mLat = lat;
+                mLot = lot;
             }
         });
     }
@@ -289,8 +293,13 @@ public class LocationActiviey extends AppCompatActivity {
                 break;
             }
             case CoordinateType.BD09LL: {
-                sNode = new BNRoutePlanNode(116.30784537597782, 40.057009624099436, "百度大厦", "百度大厦", coType);
-                eNode = new BNRoutePlanNode(116.40386525193937, 39.915160800132085, "北京天安门", "北京天安门", coType);
+                if (mLot != 0 && mLat != 0) {
+                    sNode = new BNRoutePlanNode(mLot, mLat, "久创科技园", "久创科技园", coType);
+                    eNode = new BNRoutePlanNode(121.444907,31.200107, "徐家汇", "徐家汇地铁站", coType);
+                }else {
+                    sNode = new BNRoutePlanNode(121.407181, 31., "百度大厦", "百度大厦", coType);
+                    eNode = new BNRoutePlanNode(116.40386525193937, 39.915160800132085, "北京天安门", "北京天安门", coType);
+                }
                 break;
             }
             default:
