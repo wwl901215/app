@@ -12,6 +12,7 @@ import android.widget.Button;
 import com.wwl.can.canvas.CanvasMenu;
 import com.wwl.can.chartroom.ui.LoginActivity;
 import com.wwl.can.learn.Learn;
+import com.wwl.can.location.map.BaiduBaseMapActivity;
 import com.wwl.can.location.ui.LocationActiviey;
 import com.wwl.can.pulltorefreshview.PullToRefreshViewActivity;
 import com.wwl.can.webview.WebViewActivity;
@@ -44,6 +45,8 @@ public class MainActivity extends BaseActivity {
     Button btPull;
     @Bind(R.id.bt_location)
     Button btLocation;
+    @Bind(R.id.bt_map)
+    Button btMap;
 
     private LocationManager locationManager;
 
@@ -95,7 +98,7 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.bt_wifi, R.id.bt_bluetooth, R.id.bt_learn, R.id.bt_chartroom, R.id.bt_annotation, R.id.bt_canvas, R.id.bt_webview, R.id.bt_globallist, R.id.bt_pull, R.id.bt_location})
+    @OnClick({R.id.bt_wifi, R.id.bt_bluetooth, R.id.bt_learn, R.id.bt_chartroom, R.id.bt_annotation, R.id.bt_canvas, R.id.bt_webview, R.id.bt_globallist, R.id.bt_pull, R.id.bt_location, R.id.bt_map})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_wifi:
@@ -138,7 +141,10 @@ public class MainActivity extends BaseActivity {
                 Intent intent8 = new Intent(MainActivity.this, LocationActiviey.class);
                 startActivity(intent8);
                 break;
+            case R.id.bt_map:
+                Intent intent9 = new Intent(MainActivity.this, BaiduBaseMapActivity.class);
+                startActivity(intent9);
+                break;
         }
     }
-
 }

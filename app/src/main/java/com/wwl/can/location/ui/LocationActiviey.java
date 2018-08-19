@@ -112,7 +112,7 @@ public class LocationActiviey extends AppCompatActivity {
         myListener.setLin(new MyLocationListener.GetLL() {
             @Override
             public void getLL(double lat, double lot) {
-                Toast.makeText(getApplicationContext(), "lat:" + lat + " lot:" + lot, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "lat:" + lat + " lot:" + lot, Toast.LENGTH_SHORT).show();
                 mLat = lat;
                 mLot = lot;
             }

@@ -66,6 +66,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:text="location"/>
+            <Button
+                android:id="@+id/bt_map"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="BaseMap"/>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
