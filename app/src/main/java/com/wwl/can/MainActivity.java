@@ -15,6 +15,7 @@ import com.wwl.can.learn.Learn;
 import com.wwl.can.location.map.BaiduBaseMapActivity;
 import com.wwl.can.location.ui.LocationActiviey;
 import com.wwl.can.pulltorefreshview.PullToRefreshViewActivity;
+import com.wwl.can.utils.StatusBarUtils;
 import com.wwl.can.webview.WebViewActivity;
 import com.wwl.can.wifi.ui.WiFiActivity;
 import com.wwl.can.zhujie.AnnotationActivity;
@@ -54,9 +55,11 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //设置该activity是否全屏
+        StatusBarUtils.setTranslucentForImageView(this,0,null);
         ButterKnife.bind(this);
 //        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-//        locationManager.addTestProvider(mMockProviderName, false, true, false, false, true, true,
+//        locationManager.addTestProvider(mMockProviderNsame, false, true, false, false, true, true,
 //                true, 0, 5);
 //        locationManager.setTestProviderEnabled(mMockProviderName, true);
 ////        locationManager.requestLocationUpdates();
