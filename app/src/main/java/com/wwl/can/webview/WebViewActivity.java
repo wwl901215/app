@@ -2,15 +2,22 @@ package com.wwl.can.webview;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.webkit.JsResult;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -18,6 +25,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -35,12 +43,18 @@ import static android.view.KeyEvent.KEYCODE_BACK;
 //https://www.jianshu.com/p/44b977907e51
 public class WebViewActivity extends AppCompatActivity {
 
-    @Bind(R.id.webview) WebView webview;
-    @Bind(R.id.back) Button back;
-    @Bind(R.id.forword) Button forword;
-    @Bind(R.id.webview_layout) LinearLayout webviewLayout;
-    @Bind(R.id.progressbar) ProgressBar progressbar;
-    @Bind(R.id.getjs) Button getjs;
+    @Bind(R.id.webview)
+    WebView webview;
+    @Bind(R.id.back)
+    Button back;
+    @Bind(R.id.forword)
+    Button forword;
+    @Bind(R.id.webview_layout)
+    LinearLayout webviewLayout;
+    @Bind(R.id.progressbar)
+    ProgressBar progressbar;
+    @Bind(R.id.getjs)
+    Button getjs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,20 +66,21 @@ public class WebViewActivity extends AppCompatActivity {
 
     private void iniView() {
         webview.onResume();
-//        webview.loadUrl("http://baidu.com");//加载网络url
-        webview.loadUrl("file:///android_asset/csdn.html");//加载本地html文件
+//        webview.loadUrl("http://10.115.5.186:8080/aaa.html");//加载网络url
+        webview.loadUrl("file:///android_asset/nio.html");//加载本地html文件
 
         WebSettings settings = webview.getSettings();
         settings.setJavaScriptEnabled(true);
-//        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);// 优先使用缓存
+        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);// 优先使用缓存
 //        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);//不适用缓存
         //设置自适应屏幕，两者合用（下面这两个方法合用）
         settings.setUseWideViewPort(true); //将图片调整到适合webview的大小
         settings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
+        settings.setSupportZoom(true);
         //参数1：Javascript对象名
         //参数2：Java对象名
-        webview.addJavascriptInterface(new JsGetAndroidFun(WebViewActivity.this),"jsObject");//android的JsGetAndroidFun类映射到js的jsObject对象上；
+        webview.addJavascriptInterface(new JsGetAndroidFun(WebViewActivity.this), "jsObject");//android的JsGetAndroidFun类映射到js的jsObject对象上；
         //处理各种通知、请求事件的
         webview.setWebViewClient(new WebViewClient() {
             @Override
@@ -88,8 +103,21 @@ public class WebViewActivity extends AppCompatActivity {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
+
                 //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
+                if (!TextUtils.isEmpty(url)) {
+                    if (url.startsWith("tel:") || url.startsWith("nio://")) {
+                        try {
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        } finally {
+                            return true;
+                        }
+                    }
+                }
+                view.loadUrl(url);
                 return true;
             }
 
@@ -120,7 +148,7 @@ public class WebViewActivity extends AppCompatActivity {
             //(WebView上alert是弹不出来东西的，需要定制你的WebChromeClient处理弹出)
             @Override
             public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
-                Toast.makeText(WebViewActivity.this,message,Toast.LENGTH_SHORT).show();
+                Toast.makeText(WebViewActivity.this, message, Toast.LENGTH_SHORT).show();
                 result.cancel();//必须设置 不然alert只能调用一次，并且会导致退出webview再次进入的时候出现bug；
                 return true;
             }
@@ -164,6 +192,19 @@ public class WebViewActivity extends AppCompatActivity {
                 }
             }
         });
+
+//        Display display = getWindowManager().getDefaultDisplay();
+//        int width = display.getWidth();
+//        int height = display.getHeight();
+//        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(width, height * 2);
+//        webview.setLayoutParams(lp);
+//        webview.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                ((WebView) view).requestDisallowInterceptTouchEvent(false);
+//                return false;
+//            }
+//        });
     }
 
 
@@ -193,10 +234,10 @@ public class WebViewActivity extends AppCompatActivity {
                             new ValueCallback<String>() {
                                 @Override
                                 public void onReceiveValue(String value) {
-                                    Log.e("jsresult:",value);
+                                    Log.e("jsresult:", value);
                                 }
                             });
-                }else {
+                } else {
                     //方法1，效率低，会刷新页面，不推荐
                     webview.loadUrl("javascript:getConfirm()");
                 }
@@ -205,7 +246,7 @@ public class WebViewActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if (webview != null){
+        if (webview != null) {
             webview.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
             webview.onPause();//停止动画 地理位置等内核处理，但是不能停止js；
             webview.pauseTimers();//全局停止js；

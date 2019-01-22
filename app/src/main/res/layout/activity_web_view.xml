@@ -44,9 +44,13 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_height="10dp"/>
 
-        <WebView
-            android:id="@+id/webview"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></WebView>
+            android:layout_height="match_parent">
+            <WebView
+                android:id="@+id/webview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></WebView>
+        </ScrollView>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
