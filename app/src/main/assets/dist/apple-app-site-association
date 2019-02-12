@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+     {
+     "appID": "LH69GT89SS.com.do1.WeiLaiApp",
+     "paths": ["/detail/*","/article/*","/series/*","NOT /*"]
+     },
+     {
+     "appID": "L8MRL9B64V.com.do1.WeiLaiApp.inhouse",
+     "paths": ["/detail/*","/article/*","/series/*","NOT /*"]
+     }
+    ]
+  }
+}
