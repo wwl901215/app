@@ -67,9 +67,9 @@ public class WebViewActivity extends AppCompatActivity {
     private void iniView() {
         webview.onResume();
 //        webview.loadUrl("http://10.115.5.186:8080/aaa.html");//加载网络url
-//        webview.loadUrl("file:///android_asset/nio.html");//加载本地html文件
-        webview.loadUrl("file:///android_asset/dist/index.html#/module_10009/detail?spuCode=XG20181030000007&version=2&header=%7B%22isShow%22%3Afalse%7D&wv=do");//加载本地html文件
-
+        webview.loadUrl("file:///android_asset/nio.html");//加载本地html文件
+//        webview.loadUrl("file:///android_asset/dist/index.html#/module_10009/detail?spuCode=XG20181030000007&version=2&header=%7B%22isShow%22%3Afalse%7D&wv=do");//加载本地html文件
+//        webview.loadUrl("https://www.cnblogs.com/agilezhu/p/6689839.html");
         WebSettings settings = webview.getSettings();
         settings.setJavaScriptEnabled(true);
 //        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);// 优先使用缓存
