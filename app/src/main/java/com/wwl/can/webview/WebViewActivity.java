@@ -1,12 +1,15 @@
 package com.wwl.can.webview;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -14,6 +17,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,11 +41,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static android.view.KeyEvent.KEYCODE_BACK;
+import static com.wwl.can.R.layout.activity_web_view;
 
 //https://www.jianshu.com/p/b9164500d3fb
 //https://www.jianshu.com/p/2b2e5d417e10
 //https://www.jianshu.com/p/44b977907e51
-public class WebViewActivity extends AppCompatActivity {
+public class WebViewActivity extends Activity {
 
     @Bind(R.id.webview)
     WebView webview;
@@ -59,15 +64,27 @@ public class WebViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_web_view);
+        LayoutInflater layoutInflater = getLayoutInflater();
+        View inflate = layoutInflater.inflate(R.layout.activity_web_view, null);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
+        LinearLayout ll = new LinearLayout(this);
+        ll.setLayoutParams(params);
+        setContentView(inflate);
         ButterKnife.bind(this);
         iniView();
+//        inflate.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     private void iniView() {
         webview.onResume();
 //        webview.loadUrl("http://10.115.5.186:8080/aaa.html");//加载网络url
-        webview.loadUrl("file:///android_asset/nio.html");//加载本地html文件
+//        webview.loadUrl("file:///android_asset/nio.html");//加载本地html文件
+        webview.loadUrl("file:///android_asset/csdn.html");//加载本地html文件
 //        webview.loadUrl("file:///android_asset/dist/index.html#/module_10009/detail?spuCode=XG20181030000007&version=2&header=%7B%22isShow%22%3Afalse%7D&wv=do");//加载本地html文件
 //        webview.loadUrl("https://www.cnblogs.com/agilezhu/p/6689839.html");
         WebSettings settings = webview.getSettings();
@@ -213,6 +230,7 @@ public class WebViewActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
+                Toast.makeText(WebViewActivity.this, "ceshi invisible",Toast.LENGTH_SHORT).show();
                 if (webview.canGoBack()) {
                     webview.goBack();
                 }

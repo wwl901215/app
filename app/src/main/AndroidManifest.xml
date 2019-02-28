@@ -102,7 +102,7 @@
         <activity android:name=".canvas.CanvasMenu" />
         <activity android:name=".canvas.canvas1.Canvas1Activity" />
         <activity android:name=".canvas.animedemo.AnimActivity" />
-        <activity android:name=".webview.WebViewActivity" />
+        <activity android:name=".webview.WebViewActivity" android:theme="@style/translucent"/>
         <activity android:name=".GlobalListActivity" />
         <activity android:name=".pulltorefreshview.PullToRefreshViewActivity" />
         <activity android:name=".location.ui.LocationActiviey" />

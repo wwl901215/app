@@ -7,4 +7,5 @@
     <color name="bgWhite">#FFFFFFF9</color>
     <color name="bggreen">#0f0</color>
     <color name="bggrey">#eee</color>
+    <color name="translucent">#00000000</color>
 </resources>

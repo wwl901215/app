@@ -19,7 +19,11 @@
        }
 
        function callAndroid(){
-            jsObject.sayHello("你好啊 android");
+            jsObject.sayHello("你好啊 android",jsCallBack);
+       }
+
+       function jsCallBack(){
+        alert("js 传给native的回调");
        }
 
     </script>
